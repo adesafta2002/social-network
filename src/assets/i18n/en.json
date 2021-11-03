@@ -1,0 +1,25 @@
+{
+    "auth": {
+        "signup": {
+            "signup": "Sign Up",
+            "lastName": "Last Name:",
+            "firstName": "First Name:",
+            "email": "Email:",
+            "password": "Password:",
+            "passwordConfirm": "Confirm Password:",
+            "submit": "Submit",
+            "hasAccount": "Already have an account?",
+            "login": "Login!",
+            "info": "Please enter your information"
+        },    
+        "login": {
+            "signin": "Login",
+            "email": "Email:",
+            "password": "Password:",
+            "submit": "Submit",
+            "unregistered": "Not a member yet?",
+            "register": "Register!",
+            "info": "Please enter your email and password"
+        }
+    }
+}

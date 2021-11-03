@@ -1,0 +1,63 @@
+<div class="login-container particles-js">
+    <form class="login-wrapper"
+          [formGroup]="loginForm">
+
+        <div class="row align-items-center justify-content-center">
+            <div class="title-container col-xl-12 col-lg-8">
+                <h1>
+                    {{'auth.login.signin' | translate}}
+                </h1>
+                {{'auth.login.info' | translate}}
+
+            </div>
+        </div>
+
+        <h1 class="login_title"></h1>
+        <div class="row justify-content-center">
+            <div class="col-9  ">
+                <label for="email">{{'auth.login.email' | translate}}</label>
+                <div class="position_icon {{(!email.valid && email.touched) ? 'invalid':''}}">
+                    <input id="email"
+                           type="text"
+                           formControlName="email"
+                           autocomplete="off">
+                    <i class="pi pi-envelope"></i>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-9 ">
+                <label for="passowrd">{{'auth.login.password' | translate}}</label>
+                <div class="position_icon {{(!password.valid && password.touched) ? 'invalid':''}}">
+                    <input id="password"
+                           type="password"
+                           formControlName="password"
+                           autocomplete="off">
+                    <i class="pi pi-lock"></i>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-9  redirect-to-signup">
+                {{'auth.login.unregistered' | translate}} <a [routerLink]="['/auth/signup']">{{'auth.login.register'
+                    | translate}}
+                </a>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-4  password">
+                <button type="button"
+                        class="submit_btn"
+                        (click)="submitFormHandler($event)">
+                    {{'auth.login.submit' | translate}}
+                </button>
+            </div>
+        </div>
+    </form>
+    <div class="waves">
+        <wave-svg></wave-svg>
+    </div>
+</div>
+<div id="particles-js"></div>
