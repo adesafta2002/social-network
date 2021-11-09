@@ -9,6 +9,7 @@ export class PublicRouter extends Router {
             await AuthFunctions.register(ctx);
             if (ctx.id) {
                 ctx.status = 201;
+                console.log(ctx);
                 ctx.set('UserId', ctx.id);
             } else {
                 ctx.status = 409;
