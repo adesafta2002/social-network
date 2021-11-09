@@ -8,6 +8,6 @@ export class UserService {
     constructor(private http: HttpClient) { }
 
     registerUser(payload: any) {
-        return this.http.post('/register', payload);
+        return this.http.post('/api/auth/register', payload);
     }
 }

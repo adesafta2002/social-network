@@ -4,7 +4,7 @@ import { IUser } from "src/app/models/user.interface";
 
 export const registerUser = createAction(
     '[User] Register User',
-    props<{ email: string, password: string, firstName: string, lastName: string }>()
+    props<{ payload: { email: string, password: string, firstName: string, lastName: string } }>()
 );
 
 export const registerUserSuccess = createAction(

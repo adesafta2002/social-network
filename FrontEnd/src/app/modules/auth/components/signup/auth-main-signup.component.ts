@@ -34,9 +34,9 @@ export class AuthSignupComponent implements OnInit {
   constructor(private fb: FormBuilder, private store: Store<IAppState>) {
     this.signupForm = this.fb.group(
       {
-        firstName: [null, [Validators.required]],
-        lastName: [null, [Validators.required]],
-        email: [null, [Validators.required, Validators.email]],
+        firstName: [null, [Validators.required,Validators.maxLength(50)]],
+        lastName: [null, [Validators.required,Validators.maxLength(50)]],
+        email: [null, [Validators.required, Validators.email,Validators.maxLength(100)]],
         password: [null, Validators.required],
         passwordConfirm: [null, Validators.required]
       }

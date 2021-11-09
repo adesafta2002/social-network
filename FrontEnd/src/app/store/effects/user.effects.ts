@@ -10,6 +10,7 @@ import * as userActions from "../actions/user.actions";
 export class UserEffects {
     registerUser$ = createEffect(() => this.actions$.pipe(
         ofType(userActions.registerUser),
+        map(action => action.payload),
         mergeMap(user => this.userService.registerUser(user)),
         mergeMap(res => {
             return of(userActions.registerUserSuccess());
