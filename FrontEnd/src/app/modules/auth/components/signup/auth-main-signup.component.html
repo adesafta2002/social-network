@@ -1,0 +1,99 @@
+<div class="signup-container"
+     [formGroup]="signupForm">
+    <form class="signup-wrapper">
+        <div class="row align-items-center justify-content-center">
+            <div class="title-container col-6">
+                <h1>
+                    {{'auth.signup.signup' | translate}}
+                </h1>
+                {{'auth.signup.info' | translate}}
+
+            </div>
+        </div>
+        <h1 class="signup_title"></h1>
+        <div class="row">
+            <div class="col-6">
+                <label for="firstName">{{'auth.signup.firstName' | translate}}</label>
+                <div class="position_icon {{(!firstName.valid && firstName.touched) ? 'invalid':''}}">
+                    <input id="firstName"
+                           formControlName="firstName"
+                           type="text"
+                           autocomplete="off">
+                    <i class="pi pi-user"></i>
+                </div>
+
+            </div>
+            <div class="col-6">
+                <label for="lastName"> {{'auth.signup.lastName' | translate}} </label>
+                <div class="position_icon {{(!lastName.valid && lastName.touched) ? 'invalid':''}}">
+                    <input id="lastName"
+                           formControlName="lastName"
+                           type="text"
+                           autocomplete="off">
+                    <i class="pi pi-user"></i>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-9">
+                <label for="email">{{'auth.signup.email' | translate}}</label>
+                <div class="position_icon {{(!email.valid && email.touched) ? 'invalid':''}}">
+                    <input id="email"
+                           formControlName="email"
+                           type="text"
+                           autocomplete="off">
+                    <i class="pi pi-envelope"></i>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-9">
+                <label for="passowrd">{{'auth.signup.password' | translate}}</label>
+                <div class="position_icon {{(!password.valid && password.touched) ? 'invalid':''}}">
+                    <input id="password"
+                           formControlName="password"
+                           type="password"
+                           autocomplete="off">
+                    <i class="pi pi-lock"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-9">
+
+                <label for="passowrd-confirm">{{'auth.signup.passwordConfirm' | translate}}</label>
+                <div class="position_icon {{(!passwordConfirm.valid && passwordConfirm.touched) ? 'invalid':''}}">
+                    <input id="password-confirm"
+                           formControlName="passwordConfirm"
+                           type="password"
+                           autocomplete="off">
+                    <i class="pi pi-lock"></i>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-9 redirect-to-login">
+                {{'auth.signup.hasAccount' | translate}} <a [routerLink]="['/auth/login']">{{'auth.signup.login'
+                    | translate}}
+                </a>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <button type="button"
+                        class="submit_btn"
+                        (click)="submitFormHandler($event)">
+                    {{'auth.signup.submit' | translate}}
+                </button>
+            </div>
+        </div>
+    </form>
+    <div class="waves">
+        <wave-svg>
+        </wave-svg>
+    </div>
+</div>
+<div id="particles-js"></div>

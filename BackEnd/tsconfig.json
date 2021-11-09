@@ -1,0 +1,18 @@
+{
+  "version": "4.4.4",
+  "compilerOptions": {
+    "target": "ES6", 
+    "lib": [
+      "ES5",
+      "ES6"
+    ],                              
+    "experimentalDecorators": true, 
+    "emitDecoratorMetadata": true, 
+    "module": "commonjs", 
+    "moduleResolution": "node", 
+    "outDir": "./dist", 
+  },
+  "include": [
+    "./src/**/*"
+  ]
+}
