@@ -8,9 +8,10 @@ const _userReducers = createReducer(
     on(UserActions.registerUser, state => ({ ...state, loading: true })),
     on(UserActions.registerUserSuccess, state => ({ ...state, loading: false })),
     on(UserActions.registerUserError, state => ({ ...state, loading: false })),
-    on(UserActions.loginUser, state => ({ ...state, loading: false })),
+    on(UserActions.loginUser, state => ({ ...state, loading: true })),
+    on(UserActions.restoreUserSession, state => ({ ...state, loading: true })),
     on(UserActions.loginUserSuccess, (state, payload) => ({ user: payload.user, token: payload.token, loading: false })),
-    on(UserActions.loginUserError, state => ({ ...state, loading: false })),
+    on(UserActions.loginUserError, state => ({...state, user: null, token: null, loading: false })),
 );
 
 export function userReducers(state: IUserState, action: Action) {

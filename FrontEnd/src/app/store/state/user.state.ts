@@ -4,7 +4,7 @@ import { IUser } from "src/app/models/user.interface";
 export interface IUserState {
     user: IUser;
     loading?: boolean;
-    token?: IAccessToken;
+    token?: string;
 }
 
 export const initialUserState: IUserState = {

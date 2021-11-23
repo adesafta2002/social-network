@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { select, Store } from '@ngrx/store';
-import { registerUser } from 'src/app/store/actions/user.actions';
-import { selectUserToken } from 'src/app/store/selectors/user.selectors';
+import { Store } from '@ngrx/store';
 import { IAppState } from 'src/app/store/state/app.state';
+import * as userActions from '../../../../store/actions/user.actions';
 import { ParticlesConfig } from '../../utils/particles-config';
 
 declare let particlesJS: any;
@@ -34,19 +33,16 @@ export class AuthSignupComponent implements OnInit {
   constructor(private fb: FormBuilder, private store: Store<IAppState>) {
     this.signupForm = this.fb.group(
       {
-        firstName: [null, [Validators.required,Validators.maxLength(50)]],
-        lastName: [null, [Validators.required,Validators.maxLength(50)]],
-        email: [null, [Validators.required, Validators.email,Validators.maxLength(100)]],
-        password: [null, Validators.required],
-        passwordConfirm: [null, Validators.required]
+        firstName: [null, [Validators.required, Validators.maxLength(50)]],
+        lastName: [null, [Validators.required, Validators.maxLength(50)]],
+        email: [null, [Validators.required, Validators.email, Validators.maxLength(100)]],
+        password: [null, [Validators.required, Validators.minLength(8)]],
+        passwordConfirm: [null, [Validators.required, Validators.minLength(8)]]
       }
     )
   }
   ngOnInit() {
     this.invokeParticles();
-    this.store.pipe(select(selectUserToken)).subscribe(
-      token => console.log(token)
-    )
   }
 
   public invokeParticles(): void {
@@ -56,7 +52,12 @@ export class AuthSignupComponent implements OnInit {
   submitFormHandler(event: any) {
     if (!this.signupForm.valid) {
       this.signupForm.markAllAsTouched();
-      this.store.dispatch(registerUser(this.signupForm.getRawValue()))
+    } else {
+      const data = {
+        payload: this.signupForm.getRawValue()
+      }
+      this.store.dispatch(userActions.registerUser(data));
+      this.signupForm.reset();
     }
   }
 }

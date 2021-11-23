@@ -6,6 +6,7 @@ import { ParticlesConfig } from '../../utils/particles-config';
 import * as userActions from '../../../../store/actions/user.actions';
 import { Store } from '@ngrx/store';
 import { IAppState } from 'src/app/store/state/app.state';
+import { Router } from '@angular/router';
 
 declare let particlesJS: any;
 
@@ -25,11 +26,11 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
     return this.loginForm.get('password') as FormControl
   }
 
-  constructor(private fb: FormBuilder, private store: Store<IAppState>) {
+  constructor(private fb: FormBuilder, private store: Store<IAppState>, private router: Router) {
     this.loginForm = this.fb.group(
       {
         email: [null, [Validators.required, Validators.email, Validators.maxLength(100)]],
-        password: [null, Validators.required]
+        password: [null, [Validators.required, Validators.minLength(8)]]
       }
     )
   }
@@ -44,7 +45,8 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
       const data = {
         payload: this.loginForm.getRawValue()
       }
-      this.store.dispatch(userActions.registerUser(data));
+      this.store.dispatch(userActions.loginUser(data));
+      this.router.navigate(['/home']);
     }
   }
 

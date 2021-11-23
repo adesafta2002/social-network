@@ -1,4 +1,4 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { EffectsModule } from '@ngrx/effects';
@@ -14,9 +14,10 @@ import { AppNavbarComponent } from './components/app-navbar.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthModule } from './modules/auth/auth.module';
 import { AuthRoutingModule } from './modules/auth/auth.routes';
+import { AuthorizationInterceptor } from './shared/interceptors/authorization.interceptor';
 import { UserService } from './shared/services/user.service';
 import { UserEffects } from './store/effects/user.effects';
-import { appReducers } from './store/reducers/app.reducers';
+import { appReducers, metaReducers } from './store/reducers/app.reducers';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -40,14 +41,19 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
         deps: [HttpClient]
       }
     }),
-    StoreModule.forRoot(appReducers),
+    StoreModule.forRoot(appReducers, { metaReducers }),
     EffectsModule.forRoot([UserEffects]),
     StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
     !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   providers: [
     AuthGuard,
-    UserService
+    UserService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthorizationInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

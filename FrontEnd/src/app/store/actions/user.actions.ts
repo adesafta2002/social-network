@@ -17,12 +17,17 @@ export const registerUserError = createAction(
 
 export const loginUser = createAction(
     '[User] Login User',
-    props<{ email: string, password: string }>()
+    props<{ payload: { email: string, password: string } }>()
+);
+
+export const restoreUserSession = createAction(
+    '[User] Restore User Session',
+    props<{ payload: { token: string } }>()
 );
 
 export const loginUserSuccess = createAction(
     '[User] Login User Success',
-    props<{ user: IUser, token: IAccessToken }>()
+    props<{ user: IUser, token: string }>()
 );
 
 export const loginUserError = createAction(
