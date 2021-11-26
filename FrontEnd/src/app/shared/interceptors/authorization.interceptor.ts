@@ -23,6 +23,14 @@ export class AuthorizationInterceptor implements HttpInterceptor {
             const headers = request.headers.delete('skip');
             return next.handle(request.clone({ headers }));
         }
+        if (request.headers.get('getFromLocalStorage')) {
+            const token = localStorage.getItem('Token');
+            const headers = request.headers.delete('getFromLocalStorage').append('Authorization', `Bearer ${token}`);
+            request = request.clone({
+                headers
+            })
+            return next.handle(request);
+        }
         request = request.clone({
             setHeaders: {
                 Authorization: `Bearer ${this.authToken}`

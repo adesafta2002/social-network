@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
+import { distinctUntilChanged, takeWhile } from 'rxjs/operators';
+import { selectUserLoading } from 'src/app/store/selectors/user.selectors';
 import { IAppState } from 'src/app/store/state/app.state';
 import * as userActions from '../../../../store/actions/user.actions';
 import { ParticlesConfig } from '../../utils/particles-config';
@@ -11,8 +13,10 @@ declare let particlesJS: any;
   templateUrl: 'auth-main-signup.component.html',
   styleUrls: ['auth-main-signup.component.scss']
 })
-export class AuthSignupComponent implements OnInit {
+export class AuthSignupComponent implements OnInit, OnDestroy {
   signupForm: FormGroup;
+  alive = true;
+  loading = false;
 
   get firstName(): FormControl {
     return this.signupForm.get('firstName') as FormControl
@@ -43,6 +47,10 @@ export class AuthSignupComponent implements OnInit {
   }
   ngOnInit() {
     this.invokeParticles();
+    this.store.pipe(select(selectUserLoading)).pipe(
+      takeWhile(() => this.alive),
+      distinctUntilChanged()
+    ).subscribe(loading => this.loading = loading)
   }
 
   public invokeParticles(): void {
@@ -59,5 +67,9 @@ export class AuthSignupComponent implements OnInit {
       this.store.dispatch(userActions.registerUser(data));
       this.signupForm.reset();
     }
+  }
+
+  ngOnDestroy() {
+    this.alive = false
   }
 }

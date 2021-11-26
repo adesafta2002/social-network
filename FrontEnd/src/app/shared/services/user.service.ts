@@ -17,6 +17,6 @@ export class UserService {
     }
 
     restoreUserSesssion(payload: any) {
-        return this.http.post(EMainEnpoint.security + EFieldEndpoint.getCurrentUser, payload)
+        return this.http.post(EMainEnpoint.security + EFieldEndpoint.getCurrentUser, payload, { headers: { getFromLocalStorage: 'true' } });
     }
 }

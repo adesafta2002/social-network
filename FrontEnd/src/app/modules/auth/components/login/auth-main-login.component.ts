@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { takeWhile } from 'rxjs/operators';
-import { UserService } from 'src/app/shared/services/user.service';
-import { ParticlesConfig } from '../../utils/particles-config';
-import * as userActions from '../../../../store/actions/user.actions';
-import { Store } from '@ngrx/store';
-import { IAppState } from 'src/app/store/state/app.state';
 import { Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import { distinctUntilChanged, takeWhile } from 'rxjs/operators';
+import { selectUserLoading } from 'src/app/store/selectors/user.selectors';
+import { IAppState } from 'src/app/store/state/app.state';
+import * as userActions from '../../../../store/actions/user.actions';
+import { ParticlesConfig } from '../../utils/particles-config';
 
 declare let particlesJS: any;
 
@@ -18,6 +18,7 @@ declare let particlesJS: any;
 export class AuthLoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   alive = true;
+  loading = false;
 
   get email(): FormControl {
     return this.loginForm.get('email') as FormControl
@@ -36,6 +37,10 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
   }
   ngOnInit() {
     this.invokeParticles();
+    this.store.pipe(select(selectUserLoading)).pipe(
+      takeWhile(() => this.alive),
+      distinctUntilChanged()
+    ).subscribe(loading => this.loading = loading)
   }
 
   submitFormHandler(event: any) {
@@ -46,7 +51,6 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
         payload: this.loginForm.getRawValue()
       }
       this.store.dispatch(userActions.loginUser(data));
-      this.router.navigate(['/home']);
     }
   }
 

@@ -5,9 +5,11 @@ import { AuthRoutingModule } from './auth.routes';
 import { AuthComponent } from './container/auth-main.component';
 import { AuthLoginComponent } from './components/login/auth-main-login.component'
 import { AuthSignupComponent } from './components/signup/auth-main-signup.component';
-import { WaveSvgComponent } from 'src/app/shared/wave-svg-component/wave-svg.component';
+
 import { ReactiveFormsModule } from '@angular/forms';
-import {InputTextModule} from 'primeng/inputtext';
+import { InputTextModule } from 'primeng/inputtext';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { WaveSvgComponent } from 'src/app/shared/wave-svg-component/wave-svg.component';
 
 @NgModule({
     imports: [
@@ -15,7 +17,8 @@ import {InputTextModule} from 'primeng/inputtext';
         AuthRoutingModule,
         TranslateModule.forChild(),
         ReactiveFormsModule,
-        InputTextModule
+        InputTextModule,
+        ProgressSpinnerModule
     ],
     declarations: [
         AuthComponent,

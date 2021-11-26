@@ -6,4 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['auth-main.component.scss']
 })
 export class AuthComponent {
+  constructor() {
+
+  }
 }

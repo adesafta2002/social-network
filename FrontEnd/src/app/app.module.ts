@@ -7,6 +7,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -44,7 +45,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     StoreModule.forRoot(appReducers, { metaReducers }),
     EffectsModule.forRoot([UserEffects]),
     StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
-    !environment.production ? StoreDevtoolsModule.instrument() : []
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    ProgressSpinnerModule
   ],
   providers: [
     AuthGuard,
