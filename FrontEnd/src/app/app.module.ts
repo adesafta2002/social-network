@@ -11,10 +11,11 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AppNavbarComponent } from './components/app-navbar.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthModule } from './modules/auth/auth.module';
 import { AuthRoutingModule } from './modules/auth/auth.routes';
+import { AppNavbarComponent } from './shared/components/navbar-component/app-navbar.component';
+import { NotificationComponent } from './shared/components/notification-component/notification.component';
 import { AuthorizationInterceptor } from './shared/interceptors/authorization.interceptor';
 import { UserService } from './shared/services/user.service';
 import { UserEffects } from './store/effects/user.effects';
@@ -27,7 +28,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 @NgModule({
   declarations: [
     AppComponent,
-    AppNavbarComponent
+    AppNavbarComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,

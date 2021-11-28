@@ -5,6 +5,8 @@ import { takeWhile, distinctUntilChanged, filter } from 'rxjs/operators';
 import { selectUserLoading, selectUserToken } from './store/selectors/user.selectors';
 import { IAppState } from './store/state/app.state';
 import * as userActions from './store/actions/user.actions';
+import { NotificationService } from './shared/services/notification.service';
+import { IAppNotificationInterface } from './models/notification.interface';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +16,8 @@ import * as userActions from './store/actions/user.actions';
 export class AppComponent implements OnInit {
   alive = true;
   loading = true;
-  constructor(private translate: TranslateService, private store: Store<IAppState>) {
+  notification: IAppNotificationInterface = null;
+  constructor(private translate: TranslateService, private store: Store<IAppState>, private notificationService: NotificationService) {
     translate.setDefaultLang('en');
   }
 
@@ -34,7 +37,19 @@ export class AppComponent implements OnInit {
 
     setTimeout(() => {
       this.loading = false;
-    }, 5000);
+    }, 0);
+
+    this.notificationService.notifications.pipe(
+      takeWhile(() => this.alive)
+    ).subscribe(
+      notification => {
+        this.notification = notification;
+        setTimeout(
+          () => this.notification = {type: 'none', message: ''},
+          2000);
+      }
+
+    )
   };
 
   restoreUserSession() {

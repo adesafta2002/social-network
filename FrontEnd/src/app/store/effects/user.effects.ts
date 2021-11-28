@@ -4,6 +4,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { get } from 'lodash';
 import { of } from "rxjs";
 import { catchError, map, mergeMap } from "rxjs/operators";
+import { NotificationService } from "src/app/shared/services/notification.service";
 import { UserService } from "src/app/shared/services/user.service";
 import * as userActions from "../actions/user.actions";
 
@@ -28,7 +29,8 @@ export class UserEffects {
             mergeMap(res => {
                 const user = get(res, 'user', {});
                 const token = get(res, 'token', null);
-                this.router.navigate(['/home'])
+                this.router.navigate(['/home']);
+                this.notificationService.sendNotification({ type: 'success', message: 'Login Successful' })
                 return of(userActions.loginUserSuccess({ user, token }));
             }),
             catchError(err => {
@@ -55,6 +57,7 @@ export class UserEffects {
     constructor(
         private actions$: Actions,
         private userService: UserService,
-        private router: Router
+        private router: Router,
+        private notificationService: NotificationService
     ) { }
 };

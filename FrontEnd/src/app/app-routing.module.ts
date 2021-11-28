@@ -2,6 +2,7 @@ import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './guards/auth.guard';
+import { AuthLoginComponent } from './modules/auth/components/login/auth-main-login.component';
 
 const routes: Routes = [
   {
@@ -11,12 +12,16 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    component: AppComponent,
+    component: AuthLoginComponent,
     canActivate: [AuthGuard]
   },
   {
     path: 'auth',
     loadChildren: () => import(`./modules/auth/auth.module`).then(m => m.AuthModule)
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import(`./modules/profile/profile.module`).then(m => m.ProfileModule)
   }
   ,
   { path: '**', redirectTo: '' }

@@ -106,6 +106,16 @@
         align-items: center;
         justify-content: center;
     }
+    .errors-container {
+        background-color: rgba(255, 0, 0, 0.342);
+        color: $darkSecondaryColorText;
+        border-radius: 21px;
+        height: 2.5rem;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
 
     @media screen and (max-width: 1800px) {
         .signup-wrapper {

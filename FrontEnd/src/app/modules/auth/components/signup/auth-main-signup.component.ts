@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { distinctUntilChanged, takeWhile } from 'rxjs/operators';
 import { selectUserLoading } from 'src/app/store/selectors/user.selectors';
@@ -17,6 +17,7 @@ export class AuthSignupComponent implements OnInit, OnDestroy {
   signupForm: FormGroup;
   alive = true;
   loading = false;
+  passwordsMatchValidation = true;
 
   get firstName(): FormControl {
     return this.signupForm.get('firstName') as FormControl
@@ -47,10 +48,12 @@ export class AuthSignupComponent implements OnInit, OnDestroy {
   }
   ngOnInit() {
     this.invokeParticles();
+
     this.store.pipe(select(selectUserLoading)).pipe(
       takeWhile(() => this.alive),
       distinctUntilChanged()
-    ).subscribe(loading => this.loading = loading)
+    ).subscribe(loading => this.loading = loading);
+
   }
 
   public invokeParticles(): void {
@@ -61,11 +64,16 @@ export class AuthSignupComponent implements OnInit, OnDestroy {
     if (!this.signupForm.valid) {
       this.signupForm.markAllAsTouched();
     } else {
-      const data = {
-        payload: this.signupForm.getRawValue()
+      if (this.password.value === this.passwordConfirm.value) {
+        this.passwordsMatchValidation = true;
+        const data = {
+          payload: this.signupForm.getRawValue()
+        }
+        this.store.dispatch(userActions.registerUser(data));
+        this.signupForm.reset();
+      } else {
+        this.passwordsMatchValidation = false;
       }
-      this.store.dispatch(userActions.registerUser(data));
-      this.signupForm.reset();
     }
   }
 

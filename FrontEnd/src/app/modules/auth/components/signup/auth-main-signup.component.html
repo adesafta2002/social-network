@@ -82,6 +82,12 @@
             </div>
         </div>
         <div class="row justify-content-center">
+            <div class="col-9 errors-container"
+                 *ngIf="!passwordsMatchValidation">
+                {{'auth.signup.passwordsMatchValidation' | translate}}
+            </div>
+        </div>
+        <div class="row justify-content-center">
             <div class="col-6">
                 <button type="button"
                         class="submit_btn"

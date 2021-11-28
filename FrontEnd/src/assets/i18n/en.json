@@ -10,7 +10,8 @@
             "submit": "Submit",
             "hasAccount": "Already have an account?",
             "login": "Login!",
-            "info": "Please enter your information"
+            "info": "Please enter your information",
+            "passwordsMatchValidation": "Passwords do not match!"
         },    
         "login": {
             "signin": "Login",
