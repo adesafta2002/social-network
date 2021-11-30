@@ -8,7 +8,8 @@
     </div>
     <div class="col-4 user-info"
          *ngIf="user">
-        <h3 (click)="userClickHandler()">
+        <h3 (click)="userClickHandler()" class="user-data-display">
+             <i class="pi pi-user"></i>
             {{user.firstName}} {{user.lastName}}
         </h3>
         <div class="more-dropdown">
@@ -20,9 +21,10 @@
 <div *ngIf="showMore"
      class="more-info">
     <ul>
-        <li (click)="logOutUser()">
+        <li (click)="logOutUser()" hover-class="more-info-list-item-hover">
                 <i class="pi pi-unlock"></i>
                 Log out
+                <span class="underline-animation"></span>
         </li>
     </ul>
 

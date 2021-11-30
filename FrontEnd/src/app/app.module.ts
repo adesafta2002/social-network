@@ -21,6 +21,7 @@ import { ErrorHandlerInterceptor } from './shared/interceptors/errorHandler.inte
 import { UserService } from './shared/services/user.service';
 import { UserEffects } from './store/effects/user.effects';
 import { appReducers, metaReducers } from './store/reducers/app.reducers';
+import { MouseOverDirective } from './directives/mouse-over.directive';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -30,7 +31,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   declarations: [
     AppComponent,
     AppNavbarComponent,
-    NotificationComponent
+    NotificationComponent,
+    MouseOverDirective
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     EffectsModule.forRoot([UserEffects]),
     StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
   ],
   providers: [
     AuthGuard,
