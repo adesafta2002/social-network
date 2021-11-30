@@ -1,14 +1,25 @@
+@mixin displayFlexAlignItems($alignItems) {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: $alignItems;
+}
+
 :host {
     .row {
         width: 100%;
         height: calc(100vh - 4rem);
         margin: 0px;
-        padding: 0px;
+        padding: 2rem 1.5rem;
     }
     .main-component-left {
+        @include displayFlexAlignItems("left");
     }
     .main-component-right {
+        @include displayFlexAlignItems("right");
     }
     .main-component-center {
+        @include displayFlexAlignItems("center");
     }
 }

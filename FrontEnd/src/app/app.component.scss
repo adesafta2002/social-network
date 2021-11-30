@@ -1,5 +1,9 @@
 @import "shared/variables";
 
+::ng-deep body {
+    font-family: "Roboto", sans-serif;
+}
+
 :host {
     .app-container {
         background-color: #202022;

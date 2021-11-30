@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { IUser } from 'src/app/models/user.interface';
 
 @Component({
   selector: 'user-display',
@@ -6,7 +8,10 @@ import { Component } from '@angular/core';
   styleUrls: ['user-display.component.scss']
 })
 export class UserDisplayComponent {
-  constructor() {
-
+  @Input() user: IUser;
+  constructor(private router: Router) {
+  }
+  userDetailsClickHandler() {
+    this.router.navigate(['main/profile', this.user.id])
   }
 }

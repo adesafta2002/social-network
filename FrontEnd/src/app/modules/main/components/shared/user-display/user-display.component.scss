@@ -4,8 +4,31 @@
 :host {
     .user-display-component {
         width: 80%;
-        height: 15vh;
+        height: 10vh;
+        position: absolute;
+        right: 0;
         @include applyBorderRadius;
         box-shadow: 4px 4px 4px $boxShadow;
+        background-color: $darkSecondaryColor;
+        color: $darkSecondaryColorText;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        h3 {
+            cursor: pointer;
+        }
+        h3:hover {
+            color: white;
+        }
+        .email-paragraph {
+            width: 100%;
+            text-align: right;
+            font-size: 1.1rem;
+        }
+        .pi {
+            color: $userIconColor;
+            font-size: 1.5rem;
+        }
     }
 }

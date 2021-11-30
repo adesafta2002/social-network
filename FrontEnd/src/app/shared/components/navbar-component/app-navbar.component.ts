@@ -34,7 +34,7 @@ export class AppNavbarComponent implements OnInit, OnDestroy {
   }
 
   userClickHandler() {
-    console.log(this.user);
+    this.router.navigate(['/main/profile',this.user.id])
   }
 
   showMoreInfo() {
