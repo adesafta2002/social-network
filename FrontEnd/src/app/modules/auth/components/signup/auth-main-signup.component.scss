@@ -1,4 +1,5 @@
 @import "../../../../shared/variables";
+@import "../../../../shared/mixins";
 
 :host {
     background: red;
@@ -34,7 +35,7 @@
         color: $darkSecondaryColorText;
     }
     input {
-        border-radius: 21px;
+        @include applyBorderRadius;
         height: 2.5rem;
         background-color: $darkSecondaryColor;
         color: $inputColors;
@@ -66,7 +67,7 @@
         border: none;
         background-color: $darkSecondaryColor;
         color: $darkSecondaryColorText;
-        border-radius: 21px;
+        @include applyBorderRadius;
         font-size: 1.4rem;
         box-shadow: 1px 2px 0px 0px rgb(29, 29, 29);
         width: 100%;
@@ -109,7 +110,7 @@
     .errors-container {
         background-color: $errorColorFaded;
         color: $darkSecondaryColorText;
-        border-radius: 21px;
+        @include applyBorderRadius;
         height: 2.5rem;
         text-align: center;
         display: flex;
