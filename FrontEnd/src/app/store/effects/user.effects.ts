@@ -16,6 +16,7 @@ export class UserEffects {
         map(action => action.payload),
         mergeMap(user => this.userService.registerUser(user).pipe(
             mergeMap(res => {
+                this.notificationService.sendNotification({ type: 'success', message: 'Your registration is now complete, you can log into your account.' });
                 return of(userActions.registerUserSuccess());
             }),
             catchError(err => of(userActions.registerUserError()))
@@ -30,11 +31,11 @@ export class UserEffects {
                 const user = get(res, 'user', {});
                 const token = get(res, 'token', null);
                 this.router.navigate(['/home']);
-                this.notificationService.sendNotification({ type: 'success', message: 'Login Successful' })
+                this.notificationService.sendNotification({ type: 'success', message: 'Login Successful.' });
                 return of(userActions.loginUserSuccess({ user, token }));
             }),
             catchError(err => {
-                return of(userActions.loginUserError())
+                return of(userActions.loginUserError());
             }
             )))
     ));

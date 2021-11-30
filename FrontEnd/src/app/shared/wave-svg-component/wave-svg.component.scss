@@ -1,0 +1,10 @@
+:host {
+    .svg-component {
+        height: 210px;
+    }
+    @media screen and (max-height: 850px) {
+        .svg-component {
+            height: auto;
+        }
+    }
+}

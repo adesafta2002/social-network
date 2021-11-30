@@ -8,4 +8,5 @@ import { IAppNotificationInterface } from 'src/app/models/notification.interface
 })
 export class NotificationComponent {
   @Input() notification: IAppNotificationInterface
+  constructor() { }
 }

@@ -6,8 +6,25 @@
          *ngIf="false">
         Search
     </div>
-    <div class="col-4"
-         *ngIf="false">
-        Profile
+    <div class="col-4 user-info"
+         *ngIf="user">
+        <h3 (click)="userClickHandler()">
+            {{user.firstName}} {{user.lastName}}
+        </h3>
+        <div class="more-dropdown">
+            <i class="pi pi-caret-down"
+               (click)="showMoreInfo()"></i>
+        </div>
     </div>
+</div>
+<div *ngIf="showMore"
+     class="more-info">
+    <ul>
+        <li (click)="logOutUser()">
+                <i class="pi pi-unlock"></i>
+                Log out
+        </li>
+    </ul>
+
+
 </div>

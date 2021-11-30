@@ -1,3 +1,15 @@
-<div class="notification-wrapper">
-
+<div class="notification-wrapper {{notification.type}}">
+    <div *ngIf="notification.type === 'error'">
+        Error:<br>
+        {{notification.message}}
+    </div>
+    <div *ngIf="notification.type === 'success'">
+        Success:<br>
+        {{notification.message}}
+    </div>
+    <div *ngIf="notification.type === 'warning'">
+        Warning:<br>
+        {{notification.message}}
+    </div>
+   
 </div>

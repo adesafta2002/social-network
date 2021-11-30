@@ -17,6 +17,7 @@ import { AuthRoutingModule } from './modules/auth/auth.routes';
 import { AppNavbarComponent } from './shared/components/navbar-component/app-navbar.component';
 import { NotificationComponent } from './shared/components/notification-component/notification.component';
 import { AuthorizationInterceptor } from './shared/interceptors/authorization.interceptor';
+import { ErrorHandlerInterceptor } from './shared/interceptors/errorHandler.interceptor';
 import { UserService } from './shared/services/user.service';
 import { UserEffects } from './store/effects/user.effects';
 import { appReducers, metaReducers } from './store/reducers/app.reducers';
@@ -56,6 +57,11 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthorizationInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorHandlerInterceptor,
       multi: true
     }
   ],

@@ -17,7 +17,7 @@ class PublicRouter extends Router {
                 }
                 else if (ctx.request.body) {
                     ctx.status = 409;
-                    ctx.body = '';
+                    ctx.body = 'User already exists.';
                 }
             }
             catch (error) {
@@ -34,7 +34,7 @@ class PublicRouter extends Router {
                 }
                 else {
                     ctx.status = 401;
-                    ctx.body = "User not found or passwords don't match";
+                    ctx.body = "User not found or passwords don't match.";
                 }
             }
             catch (error) {

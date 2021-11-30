@@ -12,6 +12,7 @@ const _userReducers = createReducer(
     on(UserActions.restoreUserSession, state => ({ ...state, loading: true })),
     on(UserActions.loginUserSuccess, (state, payload) => ({ user: payload.user, token: payload.token, loading: false })),
     on(UserActions.loginUserError, state => ({...state, user: null, token: null, loading: false })),
+    on(UserActions.logOutUser, state => ({...state, user: null, token: null, loading: false }))
 );
 
 export function userReducers(state: IUserState, action: Action) {

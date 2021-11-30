@@ -62,6 +62,7 @@ export class AuthSignupComponent implements OnInit, OnDestroy {
 
   submitFormHandler(event: any) {
     if (!this.signupForm.valid) {
+      console.log('invalid')
       this.signupForm.markAllAsTouched();
     } else {
       if (this.password.value === this.passwordConfirm.value) {
@@ -69,6 +70,7 @@ export class AuthSignupComponent implements OnInit, OnDestroy {
         const data = {
           payload: this.signupForm.getRawValue()
         }
+        console.log('ssss')
         this.store.dispatch(userActions.registerUser(data));
         this.signupForm.reset();
       } else {

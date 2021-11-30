@@ -87,7 +87,7 @@
     }
     .invalid {
         input {
-            border: 1px solid $warningColor;
+            border: 1px solid $errorColor;
         }
     }
 
@@ -107,7 +107,7 @@
         justify-content: center;
     }
     .errors-container {
-        background-color: rgba(255, 0, 0, 0.342);
+        background-color: $errorColorFaded;
         color: $darkSecondaryColorText;
         border-radius: 21px;
         height: 2.5rem;
@@ -232,6 +232,52 @@
         }
         .submit_btn {
             font-size: 0.3rem;
+        }
+    }
+    @media screen and (max-height: 850px) {
+        input {
+            height: 2rem;
+        }
+        h1 {
+            font-size: 1.3rem;
+        }
+        div {
+            font-size: 0.8rem;
+        }
+        .submit_btn {
+            font-size: 1rem;
+            height: 2rem;
+        }
+        input {
+            height: 2rem;
+        }
+        .position_icon {
+            .pi {
+                font-size: 1rem;
+            }
+        }
+    }
+    @media screen and (max-height: 800px) {
+        .signup-container {
+            justify-content: bottom !important;
+            height: calc(100vh - 6rem);
+            margin-top: 4rem;
+        }
+        .row {
+            margin-bottom: 0.8rem;
+        }
+    }
+    @media screen and (max-height: 650px) {
+        .signup-container {
+            justify-content: bottom !important;
+            height: calc(100vh - 6rem);
+            margin-top: 4rem;
+        }
+        .row {
+            margin-bottom: 0.8rem;
+        }
+        .signup-wave{
+            display: none;
         }
     }
 }

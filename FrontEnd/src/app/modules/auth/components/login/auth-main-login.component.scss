@@ -79,7 +79,7 @@
     }
     .invalid {
         input {
-            border: 1px solid $warningColor;
+            border: 1px solid $errorColor;
         }
     }
     .redirect-to-signup {

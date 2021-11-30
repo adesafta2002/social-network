@@ -16,7 +16,7 @@ import { IAppNotificationInterface } from './models/notification.interface';
 export class AppComponent implements OnInit {
   alive = true;
   loading = true;
-  notification: IAppNotificationInterface = null;
+  notification: IAppNotificationInterface = {type: 'none', message: 'test'};
   constructor(private translate: TranslateService, private store: Store<IAppState>, private notificationService: NotificationService) {
     translate.setDefaultLang('en');
   }

@@ -20,6 +20,10 @@ export const loginUser = createAction(
     props<{ payload: { email: string, password: string } }>()
 );
 
+export const logOutUser = createAction(
+    '[User] Logout User',
+);
+
 export const restoreUserSession = createAction(
     '[User] Restore User Session',
     props<{ payload: { token: string } }>()

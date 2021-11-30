@@ -15,7 +15,7 @@ export class PublicRouter extends Router {
                     ctx.set('Location', ctx.request.body.id);
                 } else if (ctx.request.body) {
                     ctx.status = 409;
-                    ctx.body = '';
+                    ctx.body = 'User already exists.';
                 }
             } catch (error) {
                 ctx.status = 400;
@@ -31,7 +31,7 @@ export class PublicRouter extends Router {
                     ctx.status = 200;
                 } else {
                     ctx.status = 401;
-                    ctx.body = "User not found or passwords don't match";
+                    ctx.body = "User not found or passwords don't match.";
                 }
             } catch (error) {
                 ctx.status = 400;

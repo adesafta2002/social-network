@@ -19,6 +19,7 @@ export class AuthorizationInterceptor implements HttpInterceptor {
             );
     }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        console.log('authorization interceptor called')
         if (request.headers.get('skip')) {
             const headers = request.headers.delete('skip');
             return next.handle(request.clone({ headers }));
