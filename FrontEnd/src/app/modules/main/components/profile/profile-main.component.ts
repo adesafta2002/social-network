@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { takeWhile } from 'rxjs/operators';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'profile-main',
@@ -9,7 +10,7 @@ import { takeWhile } from 'rxjs/operators';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   alive = true
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private userService: UserService) {
 
   }
   ngOnInit() {

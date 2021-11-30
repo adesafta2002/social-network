@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { AuthGuard } from 'src/app/guards/auth.guard';
 import { ProfileComponent } from './components/profile/profile-main.component';
 import { MainComponent } from './container/main.component';
 
@@ -17,7 +18,8 @@ import { MainComponent } from './container/main.component';
                     },
                     {
                         path: 'profile/:id',
-                        component: ProfileComponent
+                        component: ProfileComponent,
+                        canActivate: [AuthGuard]
                     },
                     {
                         path: '',

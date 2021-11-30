@@ -30,7 +30,7 @@ export class UserEffects {
             mergeMap(res => {
                 const user = get(res, 'user', {});
                 const token = get(res, 'token', null);
-                this.router.navigate(['/home']);
+                this.router.navigate(['/main/profile/', user.id]);
                 this.notificationService.sendNotification({ type: 'success', message: 'Login Successful.' });
                 return of(userActions.loginUserSuccess({ user, token }));
             }),
@@ -47,7 +47,7 @@ export class UserEffects {
             map((res) => {
                 const user = get(res, 'user', {});
                 const token = get(res, 'token', null);
-                this.router.navigate(['/home'])
+                this.router.navigate(['/main/profile/', user.id]);
                 return userActions.loginUserSuccess({ user, token });
             }),
             catchError(err => of(userActions.loginUserError()))

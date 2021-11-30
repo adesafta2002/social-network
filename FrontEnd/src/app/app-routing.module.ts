@@ -2,17 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthLoginComponent } from './modules/auth/components/login/auth-main-login.component';
+import { PageNotFoundComponent } from './shared/components/page-not-found-component/page-not-found.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
-  },
-  {
-    path: 'home',
     redirectTo: '/main/profile/1',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'auth',
@@ -21,10 +17,16 @@ const routes: Routes = [
   {
     path: 'main',
     loadChildren: () => import(`./modules/main/main.module`).then(m => m.MainModule),
-    canActivate: [AuthGuard]
+  },
+  {
+    path: '404',
+    component: PageNotFoundComponent
+  },
+  {
+    path: '**',
+    redirectTo: '/404',
+    pathMatch: 'full'
   }
-  ,
-  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

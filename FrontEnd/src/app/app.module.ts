@@ -22,6 +22,7 @@ import { UserService } from './shared/services/user.service';
 import { UserEffects } from './store/effects/user.effects';
 import { appReducers, metaReducers } from './store/reducers/app.reducers';
 import { MouseOverDirective } from './directives/mouse-over.directive';
+import { PageNotFoundComponent } from './shared/components/page-not-found-component/page-not-found.component';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -32,7 +33,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     AppComponent,
     AppNavbarComponent,
     NotificationComponent,
-    MouseOverDirective
+    MouseOverDirective,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
