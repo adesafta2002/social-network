@@ -8,15 +8,24 @@ import { EFieldEndpoint, EMainEnpoint } from "../enpoints";
 export class UserService {
     constructor(private http: HttpClient) { }
 
-    registerUser(payload: any) {
-        return this.http.post(EMainEnpoint.authentication + EFieldEndpoint.register, payload, { headers: { skip: 'true' } });
+    getSelected(payload: any) {
+        return this.http.get(EMainEnpoint.api + EFieldEndpoint.user + '?' + this.getSearchParams(payload));
     }
 
-    loginUser(payload: any) {
-        return this.http.post(EMainEnpoint.authentication + EFieldEndpoint.login, payload, { headers: { skip: 'true' } });
+    private getSearchParams(params: UserParams) {
+        const query = [];
+        if (params._summary) {
+            query.push('_summary=' + params._summary)
+        }
+        if (params.name) {
+            query.push('name=' + params.name)
+        }
+        return query.join('&')
     }
+}
 
-    restoreUserSesssion(payload: any) {
-        return this.http.post(EMainEnpoint.security + EFieldEndpoint.getCurrentUser, payload, { headers: { getFromLocalStorage: 'true' } });
-    }
+export class UserParams {
+    _summary?: boolean;
+    name?: string;
+
 }

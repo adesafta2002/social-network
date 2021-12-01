@@ -1,5 +1,4 @@
-import { Action, createReducer, on, props } from "@ngrx/store";
-import { IUser } from "src/app/models/user.interface";
+import { Action, createReducer, on } from "@ngrx/store";
 import * as UserActions from '../actions/user.actions';
 import { initialUserState, IUserState } from "../state/user.state";
 

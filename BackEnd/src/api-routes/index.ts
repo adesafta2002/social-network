@@ -1,5 +1,6 @@
 import Router = require('koa-router');
 import { AuthFunctions, SecurityFunctions } from '../auth';
+import { UserFunctions } from '../models/user';
 
 const jwt = require('koa-jwt');
 
@@ -26,7 +27,6 @@ export class PublicRouter extends Router {
         this.post('/auth/login', async (ctx: any) => {
             try {
                 ctx.body = await AuthFunctions.login(ctx.request.body);
-                console.log(ctx.body);
                 if (ctx.body) {
                     ctx.status = 200;
                 } else {
@@ -53,8 +53,19 @@ export class PrivateRouter extends Router {
         })
 
         this.get('/api/User', async (ctx: any) => {
-            console.log('user');
-            return;
+            ctx.body = await UserFunctions.search(ctx.query);
+            ctx.staus = 200;
+        })
+
+        this.get('/api/User/:id', async (ctx: any) => {
+            const user = await UserFunctions.read(ctx.params.id);
+            if (user) {
+                ctx.staus = 200;
+                ctx.body = user;
+            } else {
+                ctx.status = 404;
+                ctx.body = 'User not found!';
+            }
         })
     }
 }

@@ -18,7 +18,7 @@ import { AppNavbarComponent } from './shared/components/navbar-component/app-nav
 import { NotificationComponent } from './shared/components/notification-component/notification.component';
 import { AuthorizationInterceptor } from './shared/interceptors/authorization.interceptor';
 import { ErrorHandlerInterceptor } from './shared/interceptors/errorHandler.interceptor';
-import { UserService } from './shared/services/user.service';
+import { AuthService } from './shared/services/auth.service';
 import { UserEffects } from './store/effects/user.effects';
 import { appReducers, metaReducers } from './store/reducers/app.reducers';
 import { MouseOverDirective } from './directives/mouse-over.directive';
@@ -57,7 +57,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   ],
   providers: [
     AuthGuard,
-    UserService,
+    AuthService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthorizationInterceptor,

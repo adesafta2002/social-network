@@ -1,4 +1,3 @@
-import { IAccessToken } from "src/app/models/access-token.interface";
 import { IUser } from "src/app/models/user.interface";
 
 export interface IUserState {

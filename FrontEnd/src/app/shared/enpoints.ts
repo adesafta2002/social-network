@@ -1,10 +1,12 @@
 export enum EMainEnpoint {
     authentication = "/api/auth/",
-    security = "/api/security/"
+    security = "/api/security/",
+    api = '/api/api/'
 }
 
-export enum EFieldEndpoint{
+export enum EFieldEndpoint {
     register = "register",
     login = "login",
-    getCurrentUser = "getCurrentUser"
+    getCurrentUser = "getCurrentUser",
+    user = 'User'
 }

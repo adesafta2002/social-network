@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PrivateRouter = exports.PublicRouter = void 0;
 const Router = require("koa-router");
 const auth_1 = require("../auth");
+const user_1 = require("../models/user");
 const jwt = require('koa-jwt');
 class PublicRouter extends Router {
     constructor(args) {
@@ -28,7 +29,6 @@ class PublicRouter extends Router {
         this.post('/auth/login', async (ctx) => {
             try {
                 ctx.body = await auth_1.AuthFunctions.login(ctx.request.body);
-                console.log(ctx.body);
                 if (ctx.body) {
                     ctx.status = 200;
                 }
@@ -53,8 +53,19 @@ class PrivateRouter extends Router {
             ctx.body = await auth_1.SecurityFunctions.getCurrentUser(ctx);
         });
         this.get('/api/User', async (ctx) => {
-            console.log('user');
-            return;
+            ctx.body = await user_1.UserFunctions.search(ctx.query);
+            ctx.staus = 200;
+        });
+        this.get('/api/User/:id', async (ctx) => {
+            const user = await user_1.UserFunctions.read(ctx.params.id);
+            if (user) {
+                ctx.staus = 200;
+                ctx.body = user;
+            }
+            else {
+                ctx.status = 404;
+                ctx.body = 'User not found!';
+            }
         });
     }
 }

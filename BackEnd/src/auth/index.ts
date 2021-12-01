@@ -58,7 +58,6 @@ export namespace AuthFunctions {
 export namespace SecurityFunctions {
     export async function getCurrentUser(ctx: any) {
         const request = new sql.Request();
-        console.log(ctx.request);
         const { token, data } = getTokenAndData(ctx.request.header);
 
         request.input('id', sql.VarChar(100), data.id);

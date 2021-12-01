@@ -57,7 +57,6 @@ var SecurityFunctions;
 (function (SecurityFunctions) {
     async function getCurrentUser(ctx) {
         const request = new sql.Request();
-        console.log(ctx.request);
         const { token, data } = (0, utils_1.getTokenAndData)(ctx.request.header);
         request.input('id', sql.VarChar(100), data.id);
         const result = await request.execute('usp_get_User');

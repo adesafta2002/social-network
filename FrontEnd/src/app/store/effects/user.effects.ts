@@ -5,7 +5,7 @@ import { get } from 'lodash';
 import { of } from "rxjs";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { NotificationService } from "src/app/shared/services/notification.service";
-import { UserService } from "src/app/shared/services/user.service";
+import { AuthService } from "src/app/shared/services/auth.service";
 import * as userActions from "../actions/user.actions";
 
 
@@ -14,7 +14,7 @@ export class UserEffects {
     registerUser$ = createEffect(() => this.actions$.pipe(
         ofType(userActions.registerUser),
         map(action => action.payload),
-        mergeMap(user => this.userService.registerUser(user).pipe(
+        mergeMap(user => this.authService.registerUser(user).pipe(
             mergeMap(res => {
                 this.notificationService.sendNotification({ type: 'success', message: 'Your registration is now complete, you can log into your account.' });
                 return of(userActions.registerUserSuccess());
@@ -26,7 +26,7 @@ export class UserEffects {
     loginUser$ = createEffect(() => this.actions$.pipe(
         ofType(userActions.loginUser),
         map(action => action.payload),
-        mergeMap(user => this.userService.loginUser(user).pipe(
+        mergeMap(user => this.authService.loginUser(user).pipe(
             mergeMap(res => {
                 const user = get(res, 'user', {});
                 const token = get(res, 'token', null);
@@ -43,7 +43,7 @@ export class UserEffects {
     restoreUser$ = createEffect(() => this.actions$.pipe(
         ofType(userActions.restoreUserSession),
         map(action => action.payload),
-        mergeMap(userToken => this.userService.restoreUserSesssion(userToken).pipe(
+        mergeMap(userToken => this.authService.restoreUserSesssion(userToken).pipe(
             map((res) => {
                 const user = get(res, 'user', {});
                 const token = get(res, 'token', null);
@@ -57,7 +57,7 @@ export class UserEffects {
 
     constructor(
         private actions$: Actions,
-        private userService: UserService,
+        private authService: AuthService,
         private router: Router,
         private notificationService: NotificationService
     ) { }
