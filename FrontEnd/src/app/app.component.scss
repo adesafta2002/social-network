@@ -31,6 +31,14 @@
             margin-bottom: 15vh;
         }
     }
+    .notifications {
+        position: absolute;
+        top: 4rem;
+        right: 0;
+        width: 20%;
+        z-index: 1001;
+        color: $darkprimarycolortext;
+    }
     @keyframes p-progress-spinner-color {
         100%,
         0% {

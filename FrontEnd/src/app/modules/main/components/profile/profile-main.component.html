@@ -1,0 +1,45 @@
+<div class="profile-display-wrapper">
+    <div class="row user-name-and-icon">
+        <div class="col-12 user-icon">
+
+        </div>
+        <div class="col-12 user-full-name">
+            <h3>
+                {{selectedUser.firstName}} {{selectedUser.lastName}}
+            </h3>
+        </div>
+    </div>
+    <div class="row user-utility-band">
+        <div class="col-4">
+            <i class="pi pi-plus">
+            </i>
+            Add friend
+        </div>
+        <div class="col-4">
+            <i class="pi pi-plus">
+            </i>
+            See posts
+        </div>
+        <div class="col-4">
+            <i class="pi pi-text">
+            </i>
+            Message
+        </div>
+    </div>
+    <div class="row user-about-section d-flex justify-content-center">
+        <div class="col-8">
+            Birth date: {{selectedUser.birthDate}}
+        </div>
+        <div class="col-8">
+            Location: {{selectedUser.locationId}}
+        </div>
+        <div class="col-8">
+            Gender: {{selectedUser.gender}}
+        </div>
+        <div class="col-8">
+            Profession: {{selectedUser.locationId}}
+        </div>
+
+    </div>
+
+</div>

@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { isEmpty } from "lodash";
 import { EFieldEndpoint, EMainEnpoint } from "../enpoints";
 
 @Injectable({
@@ -9,7 +10,7 @@ export class UserService {
     constructor(private http: HttpClient) { }
 
     getSelected(payload: any) {
-        return this.http.get(EMainEnpoint.api + EFieldEndpoint.user + '?' + this.getSearchParams(payload));
+        return this.http.get(EMainEnpoint.api + EFieldEndpoint.user + `/${payload.id}` + this.getSearchParams(payload));
     }
 
     private getSearchParams(params: UserParams) {
@@ -20,7 +21,7 @@ export class UserService {
         if (params.name) {
             query.push('name=' + params.name)
         }
-        return query.join('&')
+        return isEmpty(query) ? '' : '?' + query.join('&')
     }
 }
 

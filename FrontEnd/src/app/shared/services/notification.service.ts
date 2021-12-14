@@ -11,8 +11,12 @@ export class NotificationService {
 
     constructor() { }
 
-    sendNotification(notification: IAppNotificationInterface) {
+    addNotification(notification: IAppNotificationInterface) {
         this.notificationsSource.next(notification);
+    }
+
+    clearNotifications() {
+        this.notificationsSource.next(null);
     }
 
 }

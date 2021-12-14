@@ -1,5 +1,5 @@
 export interface IAppNotificationInterface {
-    type: 'error' | 'warning' | 'success' | 'none',
-    message: string
+    severity?: string;
+    summary?: string;
+    detail?: string;
 }
-

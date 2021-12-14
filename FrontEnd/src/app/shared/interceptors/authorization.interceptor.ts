@@ -12,14 +12,12 @@ export class AuthorizationInterceptor implements HttpInterceptor {
     constructor(private store: Store<IAppState>) {
         this.store.pipe(select(selectUserToken)).
             pipe(
-                take(1),
                 filter(token => !!token)
             ).subscribe(token =>
                 this.authToken = token
             );
     }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        console.log('authorization interceptor called')
         if (request.headers.get('skip')) {
             const headers = request.headers.delete('skip');
             return next.handle(request.clone({ headers }));

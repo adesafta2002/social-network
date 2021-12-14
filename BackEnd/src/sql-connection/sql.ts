@@ -22,8 +22,8 @@ export async function connectToSqlServer() {
     } catch (err) {
         console.log(err);
         console.log(`Connection To Database Failed. Error: ${err}`);
-        setTimeout(()=>{
+        setTimeout(() => {
             connectToSqlServer();
-        },6000)
+        }, 6000)
     }
 }

@@ -2,22 +2,22 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { get } from 'lodash';
+import { MessageService } from "primeng/api";
 import { of } from "rxjs";
 import { catchError, map, mergeMap } from "rxjs/operators";
-import { NotificationService } from "src/app/shared/services/notification.service";
-import { AuthService } from "src/app/shared/services/auth.service";
-import * as friendsActions from "../actions/friends.actions";
+import { IUser } from "src/app/models/user.interface";
 import { UserService } from "src/app/shared/services/user.service";
+import * as friendsActions from "../actions/friends.actions";
 
 
 @Injectable()
 export class FriendsEffects {
-    registerUser$ = createEffect(() => this.actions$.pipe(
+    getSelectedUser$ = createEffect(() => this.actions$.pipe(
         ofType(friendsActions.getSelectedUser),
         map(action => action.payload),
         mergeMap(payload => this.userService.getSelected(payload).pipe(
             mergeMap(res => {
-                const selected = get(res, 'selected', {});
+                const selected = get(res, 'user', '');
                 return of(friendsActions.getSelectedUserSuccess({ selected }));
             }),
             catchError(err => of(friendsActions.getSelectedUserError()))
@@ -32,7 +32,10 @@ export class FriendsEffects {
     //             const user = get(res, 'user', {});
     //             const token = get(res, 'token', null);
     //             this.router.navigate(['/main/profile/', user.id]);
-    //             this.notificationService.sendNotification({ type: 'success', message: 'Login Successful.' });
+    //              this.messageService.add({ type: 'success', message: 'Login Successful.' });
+    // setTimeout(() => {
+    //     this.messageService.clear();
+    // }, 2000);
     //             return of(userActions.loginUserSuccess({ user, token }));
     //         }),
     //         catchError(err => {
@@ -45,6 +48,6 @@ export class FriendsEffects {
         private actions$: Actions,
         private userService: UserService,
         private router: Router,
-        private notificationService: NotificationService
+        private messageService: MessageService
     ) { }
 };

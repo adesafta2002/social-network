@@ -11,6 +11,7 @@
         <p-progressSpinner>
         </p-progressSpinner>
     </div>
-    <app-notification *ngIf="notification && notification.type !== 'none'"
-                      [notification]="notification"></app-notification>
+    <div class='notifications'>
+        <p-messages></p-messages>
+    </div>
 </div>

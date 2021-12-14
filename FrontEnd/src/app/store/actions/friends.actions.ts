@@ -23,7 +23,7 @@ export const getSelectedUser = createAction(
 
 export const getSelectedUserSuccess = createAction(
     '[Friends] Get Selected User Success',
-    props<{ selected: IUser }>()
+    props<{ selected: any }>()
 );
 
 export const getSelectedUserError = createAction(

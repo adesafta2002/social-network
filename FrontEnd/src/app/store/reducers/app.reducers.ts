@@ -13,7 +13,6 @@ export const appReducers: ActionReducerMap<IAppState, any> = {
 
 export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
     return function (state, action) {
-        console.log(action.type);
         return reducer(state, action);
     };
 }

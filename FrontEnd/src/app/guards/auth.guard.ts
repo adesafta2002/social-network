@@ -20,11 +20,10 @@ export class AuthGuard implements CanActivate {
                 authToken = token
             );
 
-        if(authToken){
-            console.log(authToken, 'da');
+        if (authToken) {
             return true;
         }
-        
+
         this.router.navigate(['/auth/login']);
         return false;
     }

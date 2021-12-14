@@ -4,7 +4,7 @@
 :host {
     .user-display-component {
         width: 80%;
-        height: 10vh;
+        min-height: 10vh;
         position: absolute;
         right: 0;
         @include applyBorderRadius;

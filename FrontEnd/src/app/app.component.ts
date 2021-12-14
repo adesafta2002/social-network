@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { takeWhile, distinctUntilChanged, filter } from 'rxjs/operators';
-import { selectUserLoading, selectUserToken } from './store/selectors/user.selectors';
-import { IAppState } from './store/state/app.state';
-import * as userActions from './store/actions/user.actions';
-import { NotificationService } from './shared/services/notification.service';
+import { distinctUntilChanged, filter, takeWhile } from 'rxjs/operators';
 import { IAppNotificationInterface } from './models/notification.interface';
+import * as userActions from './store/actions/user.actions';
+import { selectFriendsSelected } from './store/selectors/friends.selectors';
+import { selectUserToken } from './store/selectors/user.selectors';
+import { IAppState } from './store/state/app.state';
 
 @Component({
   selector: 'app-root',
@@ -16,8 +16,8 @@ import { IAppNotificationInterface } from './models/notification.interface';
 export class AppComponent implements OnInit {
   alive = true;
   loading = true;
-  notification: IAppNotificationInterface = {type: 'none', message: 'test'};
-  constructor(private translate: TranslateService, private store: Store<IAppState>, private notificationService: NotificationService) {
+  notification: IAppNotificationInterface[] = null;
+  constructor(private translate: TranslateService, private store: Store<IAppState>) {
     translate.setDefaultLang('en');
   }
 
@@ -38,18 +38,6 @@ export class AppComponent implements OnInit {
     setTimeout(() => {
       this.loading = false;
     }, 0);
-
-    this.notificationService.notifications.pipe(
-      takeWhile(() => this.alive)
-    ).subscribe(
-      notification => {
-        this.notification = notification;
-        setTimeout(
-          () => this.notification = {type: 'none', message: ''},
-          2000);
-      }
-
-    )
   };
 
   restoreUserSession() {
