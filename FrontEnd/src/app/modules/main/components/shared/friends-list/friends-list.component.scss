@@ -1,0 +1,49 @@
+@import "../../../../../shared/variables";
+@import "../../../../../shared/mixins";
+
+:host {
+    .friends-list-component {
+        width: 100%;
+        height: 65vh;
+        position: relative;
+        @include applyBorderRadius;
+        box-shadow: 4px 4px 4px $boxShadow;
+        background-color: $darkSecondaryColor;
+        color: $darkPrimaryColorText;
+        padding: 3rem 3rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+
+        .friends-wrapper {
+            min-height: 50vh;
+            max-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        .friends-wrapper::-webkit-scrollbar {
+            width: 5px;
+        }
+        .friends-wrapper::-webkit-scrollbar-track {
+            background: $darkSecondaryColor;
+        }
+        .friends-wrapper::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+        .friends-wrapper::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .friend {
+            padding: 0.5rem 0.5rem;
+            @include applyBorderRadius;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            .pi-user {
+                margin-right: 0.5rem;
+                color: $userIconColor;
+            }
+        }
+    }
+}

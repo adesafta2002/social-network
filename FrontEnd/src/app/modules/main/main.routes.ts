@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AuthGuard } from 'src/app/guards/auth.guard';
+import { FeedComponent } from './components/feed/feed-main.component';
 import { ProfileComponent } from './components/profile/profile-main.component';
+import { SettingsComponent } from './components/settings/settings-main.component';
 import { MainComponent } from './container/main.component';
 
 @NgModule({
@@ -13,12 +15,17 @@ import { MainComponent } from './container/main.component';
                 children: [
                     {
                         path: 'feed',
-                        redirectTo: 'profile',
-                        pathMatch: 'full'
+                        component: FeedComponent,
+                        canActivate: [AuthGuard]
                     },
                     {
                         path: 'profile/:id',
                         component: ProfileComponent,
+                        canActivate: [AuthGuard]
+                    },
+                    {
+                        path: 'settings',
+                        component: SettingsComponent,
                         canActivate: [AuthGuard]
                     },
                     {

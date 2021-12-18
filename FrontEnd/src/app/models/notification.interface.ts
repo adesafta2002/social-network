@@ -1,5 +1,5 @@
 export interface IAppNotificationInterface {
-    severity?: string;
-    summary?: string;
-    detail?: string;
+    firstName: string;
+    lastName: string;
+    content: string;
 }

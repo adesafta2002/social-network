@@ -3,15 +3,12 @@
 
 :host {
     .bottom-left-menu-component {
-        width: 80%;
-        position: absolute;
-        left: 0;
-        bottom: 0;
+        width: 100%;
         @include applyBorderRadius;
         box-shadow: 4px 4px 4px $boxShadow;
         background-color: $darkSecondaryColor;
         color: $darkPrimaryColorText;
-        padding-bottom: 2rem;
+        padding: 2rem 0rem;
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
@@ -30,5 +27,8 @@
                 }
             }
         }
+    }
+    .active {
+        background-color: $greyPrimaryColor;
     }
 }

@@ -1,0 +1,15 @@
+<div class="notifications-component">
+    <div class="notifications-icon"><i class="pi pi-bell"></i></div>
+    <div class="notifications-wrapper">
+        <div *ngFor="let notification of notifications"
+             class="notification">
+            <h6>
+                <i class="pi pi-user"></i>
+                {{notification.lastName}} {{notification.firstName}}
+            </h6>
+            <div class="notification-content">
+                {{notification.content}}
+            </div>
+        </div>
+    </div>
+</div>

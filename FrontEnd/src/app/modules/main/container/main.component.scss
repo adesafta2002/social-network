@@ -14,12 +14,12 @@
         padding: 2rem 1.5rem;
     }
     .main-component-left {
-        @include displayFlexAlignItems("left");
+        @include displayFlexAlignItems(flex-start);
     }
     .main-component-right {
-        @include displayFlexAlignItems("right");
+        @include displayFlexAlignItems(flex-end);
     }
     .main-component-center {
-        @include displayFlexAlignItems("center");
+        @include displayFlexAlignItems(center);
     }
 }

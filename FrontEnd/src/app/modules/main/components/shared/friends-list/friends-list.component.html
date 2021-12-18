@@ -1,0 +1,13 @@
+<div class="friends-list-component">
+    <div class="search-bar">
+    </div>
+    <div class="friends-wrapper">
+        <div *ngFor="let friend of friends"
+             class="friends">
+            <h4 class="friend">
+                <i class="pi pi-user"></i>
+                {{friend.lastName}} {{friend.firstName}}
+            </h4>
+        </div>
+    </div>
+</div>

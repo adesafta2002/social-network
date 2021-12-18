@@ -1,18 +1,24 @@
 <div class="bottom-left-menu-component">
     <div class="row">
-        <div class="col-12 d-flex flex-column justify-content-end">
+        <div routerLink="/main/feed"
+             routerLinkActive="active"
+             class="col-12 d-flex flex-column justify-content-end">
             <span>
-                Feed
+                <h5><i class="pi pi-home"></i> Feed</h5>
             </span>
         </div>
-        <div class="col-12  d-flex flex-column justify-content-end">
+        <div routerLink="/main/settings"
+             routerLinkActive="active"
+             class="col-12  d-flex flex-column justify-content-end">
             <span>
-                Settings
+                <h5> <i class="pi pi-cog"></i> Settings</h5>
             </span>
         </div>
-        <div class="col-12  d-flex flex-column justify-content-end">
+        <div [routerLink]=" ['/main/profile', user.id]"
+             routerLinkActive="active"
+             class="col-12  d-flex flex-column justify-content-end">
             <span>
-                Profile
+                <h5> <i class="pi pi-user"></i> Profile</h5>
             </span>
         </div>
     </div>

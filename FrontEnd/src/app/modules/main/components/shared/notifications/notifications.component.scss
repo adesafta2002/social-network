@@ -1,0 +1,61 @@
+@import "../../../../../shared/variables";
+@import "../../../../../shared/mixins";
+
+:host {
+    .notifications-component {
+        width: 100%;
+        min-height: 50vh;
+        position: relative;
+        @include applyBorderRadius;
+        box-shadow: 4px 4px 4px $boxShadow;
+        background-color: $darkSecondaryColor;
+        color: $darkPrimaryColorText;
+        padding: 3rem 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        .notifications-icon {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            .pi {
+                font-size: 1.5rem;
+            }
+        }
+
+        .notifications-wrapper {
+            min-height: 35vh;
+            max-height: 50vh;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            padding-right: 0.4rem;
+        }
+        .notifications-wrapper::-webkit-scrollbar {
+            width: 5px;
+        }
+        .notifications-wrapper::-webkit-scrollbar-track {
+            background: $darkSecondaryColor;
+        }
+        .notifications-wrapper::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+        .notifications-wrapper::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .notification {
+            background-color: $greyPrimaryColor;
+            padding: 0.5rem 0.5rem;
+            @include applyBorderRadius;
+            margin-top: 0.5rem;
+            .notification-content {
+                padding: 0rem 1rem;
+                color: $darkPrimaryColorText;
+            }
+            .pi-user {
+                color: $userIconColor;
+            }
+        }
+    }
+}
