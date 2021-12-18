@@ -27,7 +27,7 @@
     }
     .loading-block {
         h1 {
-            color: $darkprimarycolortext;
+            color: $darkPrimaryColorText;
             margin-bottom: 15vh;
         }
     }
@@ -37,7 +37,7 @@
         right: 0;
         width: 20%;
         z-index: 1001;
-        color: $darkprimarycolortext;
+        color: $darkPrimaryColorText;
     }
     @keyframes p-progress-spinner-color {
         100%,

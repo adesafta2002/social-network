@@ -1,0 +1,90 @@
+@import "../../../../shared/variables";
+@import "../../../../shared/mixins";
+
+:host {
+    .profile-display-component {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 85vh;
+    }
+    .profile-display-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        color: $darkSecondaryColorText;
+        background-color: $darkSecondaryColor;
+        min-height: 60vh;
+        padding: 1rem 0;
+        @include applyBorderRadius;
+        width: 80%;
+        box-shadow: 4px 4px 4px $boxShadow;
+        .row {
+            width: 80%;
+        }
+        .user-name-and-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-bottom: 1px solid $darkSecondaryColorText;
+            .user-icon {
+                border-radius: 50%;
+                height: 10rem;
+                width: 10rem;
+                color: $userIconColor;
+                background-color: $darkPrimaryColor;
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                .pi {
+                    font-size: 6rem;
+                }
+                text-align: center;
+            }
+            .user-full-name {
+                margin-top: 0.5rem;
+                color: $darkPrimaryColorText;
+                text-align: center;
+            }
+        }
+        .user-utility-band {
+            margin-top: 1rem;
+            button {
+                outline: none;
+                border: none;
+                min-height: 2rem;
+                color: $darkSecondaryColorText;
+                .pi {
+                    margin-right: 0.2rem;
+                }
+                text-align: center;
+                cursor: pointer;
+                background-color: $darkPrimaryColor;
+                @include applyBorderRadius;
+                transition: 0.5s ease;
+            }
+            button:hover {
+                color: $userIconColor;
+                transition: 0.5s ease;
+            }
+        }
+        .user-about-section {
+            margin-top: 2rem;
+            color: $darkPrimaryColorText;
+            .col-8 {
+                margin-top: 0.5rem;
+                color: $darkPrimaryColorText;
+                span {
+                    color: $darkSecondaryColorText;
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 1400px) {
+        .profile-display-wrapper {
+            width: 100%;
+        }
+    }
+}

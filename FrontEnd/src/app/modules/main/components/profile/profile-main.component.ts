@@ -45,6 +45,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
       );
 
   }
+  sendFriendRequest() {
+    console.log('Sending friend request');
+  }
+
+  seeUserPosts() {
+    console.log('Seeing user posts');
+  }
+
+  seeUserFriends() {
+    console.log('Seeing user friends');
+  }
+
   ngOnDestroy() {
     this.alive = false;
   }

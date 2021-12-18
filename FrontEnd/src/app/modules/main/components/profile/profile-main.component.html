@@ -1,45 +1,68 @@
-<div class="profile-display-wrapper">
-    <div class="row user-name-and-icon">
-        <div class="col-12 user-icon">
+<div *ngIf="selectedUser"
+     class="profile-display-component">
+    <div class="container profile-display-wrapper">
+        <div class="row user-name-and-icon">
+            <div class="col-12 user-icon">
+                <i class="pi pi-user">
+                </i>
+            </div>
+            <div class="col-12 user-full-name">
+                <h3>
+                    {{selectedUser.firstName}} {{selectedUser.lastName}}
+                </h3>
+            </div>
+        </div>
+        <div class="row user-utility-band d-flex justify-content-around">
+            <div class="col-4 d-flex flex-column justify-content-center">
+                <button (click)="sendFriendRequest()">
+                    <i class="pi pi-user-plus">
+                    </i>
+                    Add friend
+                </button>
+            </div>
+            <div class="col-4 d-flex flex-column justify-content-center">
+                <button>
+                    <i class="pi pi-th-large">
+                    </i>
+                    See posts
+                </button>
+            </div>
+            <div class="col-4 d-flex flex-column justify-content-center">
+                <button>
+                    <i class="pi pi-users">
+                    </i>
+                    See friends
+                </button>
+            </div>
+        </div>
+        <div class="row user-about-section d-flex justify-content-center">
+            <h3>About</h3>
+            <div class="col-8">
+                Birth date:
+                <span>
+                    {{selectedUser.birthDate ? selectedUser.birthDate:'No data available to display'}}
+                </span>
+            </div>
+            <div class="col-8">
+                Location:
+                <span>
+                    {{selectedUser.locationId ? selectedUser.locationId:'No data available to display'}}
+                </span>
+            </div>
+            <div class="col-8">
+                Gender:
+                <span>
+                    {{selectedUser.gender ? selectedUser.gender:'No data available to display'}}
+                </span>
+            </div>
+            <div class="col-8">
+                Profession:
+                <span>
+                    {{selectedUser.locationId ? selectedUser.locationId:'No data available to display'}}
+                </span>
+            </div>
 
         </div>
-        <div class="col-12 user-full-name">
-            <h3>
-                {{selectedUser.firstName}} {{selectedUser.lastName}}
-            </h3>
-        </div>
-    </div>
-    <div class="row user-utility-band">
-        <div class="col-4">
-            <i class="pi pi-plus">
-            </i>
-            Add friend
-        </div>
-        <div class="col-4">
-            <i class="pi pi-plus">
-            </i>
-            See posts
-        </div>
-        <div class="col-4">
-            <i class="pi pi-text">
-            </i>
-            Message
-        </div>
-    </div>
-    <div class="row user-about-section d-flex justify-content-center">
-        <div class="col-8">
-            Birth date: {{selectedUser.birthDate}}
-        </div>
-        <div class="col-8">
-            Location: {{selectedUser.locationId}}
-        </div>
-        <div class="col-8">
-            Gender: {{selectedUser.gender}}
-        </div>
-        <div class="col-8">
-            Profession: {{selectedUser.locationId}}
-        </div>
 
     </div>
-
 </div>
