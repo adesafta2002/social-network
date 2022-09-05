@@ -7,7 +7,7 @@ import { PageNotFoundComponent } from './shared/components/page-not-found-compon
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/main/profile/1',
+    redirectTo: '/main/feed',
     pathMatch: 'full',
   },
   {

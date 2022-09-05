@@ -27,6 +27,12 @@ import { appReducers, metaReducers } from './store/reducers/app.reducers';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserService } from './shared/services/user.service';
 import { FriendsEffects } from './store/effects/friends.effects';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
+import { AppSearchBoxComponent } from './shared/components/search-box-component/search-box.component';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
 }
@@ -35,8 +41,9 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   declarations: [
     AppComponent,
     AppNavbarComponent,
+    AppSearchBoxComponent,
     MouseOverDirective,
-    PageNotFoundComponent
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +64,12 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     ProgressSpinnerModule,
     MessagesModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    InputTextModule,
+    ButtonModule,
+    FormsModule,
+    TableModule,
+    RippleModule
   ],
   providers: [
     AuthGuard,

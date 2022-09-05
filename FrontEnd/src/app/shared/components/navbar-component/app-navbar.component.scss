@@ -113,6 +113,29 @@
             }
         }
     }
+    .p-input-icon-right {
+        width: 100%;
+        .p-inputtext {
+            outline: none;
+        }
+        > input {
+            @include applyBorderRadius;
+            width: 100%;
+            outline: none !important;
+            padding: 0.3rem 2rem 0.3rem 1rem;
+        }
+        > input:hover,
+        > input:focus {
+            outline: none !important;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            border-color: inherit;
+        }
+        > i {
+            right: 1rem;
+            margin-top: -0.5rem !important;
+        }
+    }
     @media screen and (max-height: 800px) {
         .app-nav {
             height: 3rem;
