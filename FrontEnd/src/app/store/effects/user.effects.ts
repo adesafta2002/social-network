@@ -6,6 +6,7 @@ import { MessageService } from "primeng/api";
 import { of } from "rxjs";
 import { catchError, map, mergeMap } from "rxjs/operators";
 import { AuthService } from "src/app/shared/services/auth.service";
+import { NotificationsService } from "src/app/shared/services/notifications.service";
 import * as userActions from "../actions/user.actions";
 
 
@@ -16,10 +17,7 @@ export class UserEffects {
         map(action => action.payload),
         mergeMap(user => this.authService.registerUser(user).pipe(
             mergeMap(res => {
-                this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Your registration is now complete, you can log into your account.' });
-                setTimeout(() => {
-                    this.messageService.clear();
-                }, 2000);
+                this.notificationsService.createMessage('success', 'Success', 'Your registration is now complete, you can log into your account.');
                 return of(userActions.registerUserSuccess());
             }),
             catchError(err => of(userActions.registerUserError()))
@@ -34,10 +32,7 @@ export class UserEffects {
                 const user = get(res, 'user', {});
                 const token = get(res, 'token', null);
                 this.router.navigate(['/main/feed/']);
-                this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Login Successful.' });
-                setTimeout(() => {
-                    this.messageService.clear();
-                }, 2000);
+                this.notificationsService.createMessage('success', 'Success', 'Login Successful.');
                 return of(userActions.loginUserSuccess({ user, token }));
             }),
             catchError(err => {
@@ -53,7 +48,7 @@ export class UserEffects {
             map((res) => {
                 const user = get(res, 'user', {});
                 const token = get(res, 'token', null);
-                this.router.navigate(['/main/feed/']);
+                this.router.navigate(['/main/settings/']);
                 return userActions.loginUserSuccess({ user, token });
             }),
             catchError(err => of(userActions.loginUserError()))
@@ -65,6 +60,6 @@ export class UserEffects {
         private actions$: Actions,
         private authService: AuthService,
         private router: Router,
-        private messageService: MessageService
+        private notificationsService: NotificationsService
     ) { }
 };

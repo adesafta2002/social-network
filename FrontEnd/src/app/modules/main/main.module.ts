@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { InputTextModule } from 'primeng/inputtext';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { SelectButtonModule } from 'primeng/selectbutton';
 import { AuthGuard } from 'src/app/guards/auth.guard';
 import { FeedComponent } from './components/feed/feed-main.component';
 import { ProfileComponent } from './components/profile/profile-main.component';
@@ -21,7 +23,9 @@ import { MainRoutingModule } from './main.routes';
         MainRoutingModule,
         TranslateModule.forChild(),
         ReactiveFormsModule,
-        InputTextModule
+        InputTextModule,
+        ProgressSpinnerModule,
+        SelectButtonModule
     ],
     declarations: [
         MainComponent,

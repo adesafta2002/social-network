@@ -3,9 +3,11 @@ import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { distinctUntilChanged, filter, takeWhile } from 'rxjs/operators';
 import { IAppNotificationInterface } from './models/notification.interface';
+import { IUser } from './models/user.interface';
 import * as userActions from './store/actions/user.actions';
+import * as friendsActions from './store/actions/friends.actions';
 import { selectFriendsSelected } from './store/selectors/friends.selectors';
-import { selectUserToken } from './store/selectors/user.selectors';
+import { selectUser, selectUserLoading, selectUserToken } from './store/selectors/user.selectors';
 import { IAppState } from './store/state/app.state';
 
 @Component({
@@ -35,9 +37,28 @@ export class AppComponent implements OnInit {
         token => localStorage.setItem('Token', token)
       );
 
-    setTimeout(() => {
-      this.loading = false;
-    }, 0);
+    this.store.pipe(select(selectUser)).
+      pipe(
+        takeWhile(() => this.alive),
+        distinctUntilChanged()
+      ).subscribe(
+        (user: IUser) => {
+          if (user) {
+            console.log('user')
+            this.store.dispatch(friendsActions.searchFriends({ payload: { userId: user.id, _summary: true } }));
+          }
+        }
+      );
+
+    this.store.pipe(select(selectUserLoading)).
+      pipe(
+        takeWhile(() => this.alive),
+        distinctUntilChanged()
+      ).subscribe(
+        (loading: boolean) => {
+          this.loading = loading;
+        }
+      );
   };
 
   restoreUserSession() {

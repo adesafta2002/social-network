@@ -33,6 +33,8 @@ import { AppSearchBoxComponent } from './shared/components/search-box-component/
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
+import { NotificationsService } from './shared/services/notifications.service';
+import { UserNotificationsService } from './shared/services/user-notifications.service';
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
 }
@@ -76,6 +78,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     AuthService,
     UserService,
     MessageService,
+    NotificationsService,
+    UserNotificationsService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthorizationInterceptor,

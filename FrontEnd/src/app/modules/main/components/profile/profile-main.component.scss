@@ -69,6 +69,14 @@
                 color: $userIconColor;
                 transition: 0.5s ease;
             }
+            .decline:hover {
+                transition: 0.5s ease;
+                color: rgb(185, 34, 34);
+            }
+            .accept:hover {
+                transition: 0.5s ease;
+                color: rgb(33, 159, 33);
+            }
         }
         .user-about-section {
             margin-top: 2rem;
@@ -80,6 +88,21 @@
                     color: $darkSecondaryColorText;
                 }
             }
+        }
+        .loading-block {
+            background-color: $darkPrimaryColor;
+            width: 100%;
+            z-index: 1001;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: fade 5s ease-out;
         }
     }
     @media screen and (max-width: 1400px) {

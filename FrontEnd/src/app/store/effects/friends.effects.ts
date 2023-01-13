@@ -8,6 +8,7 @@ import { catchError, map, mergeMap } from "rxjs/operators";
 import { IUser } from "src/app/models/user.interface";
 import { UserService } from "src/app/shared/services/user.service";
 import * as friendsActions from "../actions/friends.actions";
+import { IFriendsState } from "../state/friends.state";
 
 
 @Injectable()
@@ -22,6 +23,18 @@ export class FriendsEffects {
             }),
             catchError(err => of(friendsActions.getSelectedUserError()))
         )),
+    ));
+
+    searchFriends$ = createEffect(() => this.actions$.pipe(
+        ofType(friendsActions.searchFriends),
+        map(action => action.payload),
+        mergeMap(payload => this.userService.getFriends(payload).pipe(
+            mergeMap(res => {
+                const friends: IUser[] = get(res, 'entry', '');
+                return of(friendsActions.searchFriendsSuccess({ friends }));
+            }),
+            catchError(err => of(friendsActions.searchFriendsError()))
+        ))
     ));
 
     // loginUser$ = createEffect(() => this.actions$.pipe(

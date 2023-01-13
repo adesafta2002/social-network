@@ -7,14 +7,8 @@
         <ng-template pTemplate="body"
                      let-user>
             <tr>
-                <td style="width: calc(100% - 40px)"
+                <td style="width: 100%; cursor: pointer;"
                     (click)="seeUserPage(user)">{{getFullName(user)}}</td>
-                <td style="width: 40px">
-                    <button icon="pi pi-user-plus"
-                            (click)="addFriend(user)">
-                        <i class="pi pi-user-plus">
-                        </i></button>
-                </td>
             </tr>
         </ng-template>
     </p-table>

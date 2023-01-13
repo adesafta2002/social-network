@@ -4,7 +4,7 @@ import { IUser } from "src/app/models/user.interface";
 
 export const searchFriends = createAction(
     '[Friends] Search Friends',
-    props<{ payload: { name: string, _summary: string } }>()
+    props<{ payload: { userId: number, _summary: boolean } }>()
 );
 
 export const searchFriendsSuccess = createAction(

@@ -4,16 +4,23 @@
 :host {
     .friends-list-component {
         width: 100%;
-        height: 65vh;
+        height: 63vh;
         position: relative;
         @include applyBorderRadius;
         box-shadow: 4px 4px 4px $boxShadow;
         background-color: $darkSecondaryColor;
         color: $darkPrimaryColorText;
-        padding: 3rem 3rem;
+        padding: 1rem 1rem;
         display: flex;
         flex-direction: column;
-        justify-content: space-evenly;
+        justify-content: flex-start;
+        color: $darkSecondaryColorText;
+        h5 {
+            cursor: pointer;
+        }
+        h5:hover {
+            color: white;
+        }
 
         .friends-wrapper {
             min-height: 50vh;
@@ -21,9 +28,11 @@
             display: flex;
             flex-direction: column;
             overflow-y: auto;
+            padding-right:0.5rem;
+            @include applyBorderRadius;
         }
         .friends-wrapper::-webkit-scrollbar {
-            width: 5px;
+            width: 2px;
         }
         .friends-wrapper::-webkit-scrollbar-track {
             background: $darkSecondaryColor;
@@ -34,12 +43,15 @@
         .friends-wrapper::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
-
         .friend {
-            padding: 0.5rem 0.5rem;
+            padding: 0.5rem 1rem;
             @include applyBorderRadius;
-            margin-bottom: 1rem;
+            margin: 0.5rem 0;
+            box-shadow: 5px 2px 15px -6px rgb(121, 121, 121);
             cursor: pointer;
+            :hover {
+                box-shadow: 5px 2px 15px -6px rgba(255, 255, 255, 1);
+            }
             .pi-user {
                 margin-right: 0.5rem;
                 color: $userIconColor;

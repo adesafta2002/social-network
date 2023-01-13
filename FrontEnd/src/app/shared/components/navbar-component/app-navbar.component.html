@@ -10,6 +10,7 @@
                    pInputText
                    [(ngModel)]="searchValue"
                    placeholder="Search"
+                   maxlength="50"
                    (focus)="setShowBox($event)"
                    (focusout)="setShowBox($event)">
         </span>
@@ -41,4 +42,5 @@
 
 <app-search-box *ngIf="showSearchBox"
                 [users]="users"
+                [currentUser]="user"
                 (onProfileSelect)="handleProfileSelect($event)"></app-search-box>

@@ -6,5 +6,8 @@ export interface IUser {
     gender?: string;
     birthDate?: string;
     locationId?: number;
+    friendRequest?: string;
+    relationshipId?: number;
+    address?: string;
 }
 

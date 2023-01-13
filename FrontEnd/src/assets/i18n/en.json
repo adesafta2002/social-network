@@ -11,8 +11,11 @@
             "hasAccount": "Already have an account?",
             "login": "Login!",
             "info": "Please enter your information",
-            "passwordsMatchValidation": "Passwords do not match!"
-        },    
+            "passwordsMatchValidation": "Passwords do not match!",
+            "gender": "Gender:",
+            "birthDate": "Birth date:",
+            "address": "Address:"
+        },
         "login": {
             "signin": "Login",
             "email": "Email:",

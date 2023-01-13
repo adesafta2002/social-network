@@ -1,4 +1,4 @@
-import { IUser } from "../../auth/userModel";
+import { IRelationship, IUser } from "../../auth/user-model";
 
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv')
@@ -41,17 +41,83 @@ export namespace UserFunctions {
 
         const result = await request.execute('usp_get_User');
 
+        if (!result.recordset.length) {
+            return [];
+        }
+
         result.recordset.forEach(user => {
             delete user['password'];
             if (summary) {
                 delete user['email'];
                 delete user['gender'];
                 delete user['birthDate'];
-                delete user['location_id'];
+                delete user['address'];
             }
             entry.push(user);
         });
 
         return entry;
+    }
+
+    export async function getRelationships(params) {
+        const request = new sql.Request();
+
+        for (const param in params) {
+            switch (param) {
+                case 'userId':
+                    request.input('id', sql.Int, +params[param]);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        const result = await request.execute('usp_get_Relationships');
+
+        if (!result.recordset.length) {
+            return [];
+        }
+
+        return result.recordset;
+    }
+
+    export async function sendFriendRequest(relationship: IRelationship) {
+        const request = new sql.Request();
+
+        if (relationship.emit_user) {
+            request.input('emit_user', sql.Int, relationship.emit_user);
+        }
+
+        if (relationship.receive_user) {
+            request.input('receive_user', sql.Int, relationship.receive_user);
+        }
+
+        const result = await request.execute('usp_send_friend_request');
+
+        if (result.returnValue && result.returnValue !== -1) {
+            relationship.id = result.returnValue;
+        } else if (result.returnValue) {
+            relationship.id = -1
+        } else {
+            return;
+        }
+    }
+
+    export async function cancelFriendRequest(id: number) {
+        const request = new sql.Request();
+
+        request.input('id', sql.Int, id);
+
+        const result = await request.execute('usp_delete_Relationship');
+        return;
+    }
+
+    export async function acceptFriendRequest(id: number) {
+        const request = new sql.Request();
+
+        request.input('id', sql.Int, id);
+
+        const result = await request.execute('usp_accept_Relationship');
+        return;
     }
 }

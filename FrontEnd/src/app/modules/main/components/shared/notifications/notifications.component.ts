@@ -1,15 +1,43 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IAppNotificationInterface } from 'src/app/models/notification.interface';
-import { IUser } from 'src/app/models/user.interface';
+import { takeWhile } from 'rxjs/operators';
+import { ISearchResponse } from 'src/app/models/search-response.interface';
+import { IUserNotification } from 'src/app/models/user-notification.interface';
+import { UserNotificationsService } from 'src/app/shared/services/user-notifications.service';
 
 @Component({
   selector: 'notifications',
   templateUrl: 'notifications.component.html',
   styleUrls: ['notifications.component.scss']
 })
-export class NotificationsComponent {
-  notifications: IAppNotificationInterface[] = [{ firstName: 'Nicu', lastName: 'Matei', content: 'This is the content of the notification you received' }, { firstName: 'Nicu', lastName: 'andrei', content: 'This isnt the content of the notification you received' },
-  { firstName: 'Nicu', lastName: 'Matei', content: 'This is the content of the notification you received' }, { firstName: 'Nicu', lastName: 'andrei', content: 'This isnt the content of the notification you received' },
-  { firstName: 'Nicu', lastName: 'Matei', content: 'This is the content of the notification you received' }, { firstName: 'Nicu', lastName: 'andrei', content: 'This isnt the content of the notification you received' }]
+export class NotificationsComponent implements OnInit, OnDestroy {
+  @Input() user;
+  alive = true;
+  notifications: IUserNotification[];
+  loading: boolean;
+  constructor(private userNotificationService: UserNotificationsService, private router: Router) { }
+
+  ngOnInit(): void {
+    this.searchNotifications();
+  }
+
+  searchNotifications() {
+    this.loading = true;
+    this.userNotificationService.get(this.user.id).pipe(
+      takeWhile(() => this.alive)
+    ).subscribe((res: ISearchResponse) => {
+      if (res.entry) {
+        this.notifications = res.entry;
+      }
+      this.loading = false;
+    });
+  }
+
+  navigateToUserProfile(id) {
+    this.router.navigate(['main/profile', id])
+  }
+
+  ngOnDestroy(): void {
+    this.alive = false;
+  }
 }

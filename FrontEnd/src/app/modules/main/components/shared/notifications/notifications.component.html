@@ -1,14 +1,28 @@
 <div class="notifications-component">
     <div class="notifications-icon"><i class="pi pi-bell"></i></div>
+    <div class="notifications-refresh">
+        <i *ngIf="!loading"
+           class="pi pi-refresh"
+           (click)="searchNotifications()">
+        </i>
+        <p-progressSpinner [style]="{width: '1.8rem', height: '1.8rem'}"
+                           *ngIf="loading"></p-progressSpinner>
+    </div>
     <div class="notifications-wrapper">
         <div *ngFor="let notification of notifications"
              class="notification">
-            <h6>
+            <h6 (click)="navigateToUserProfile(notification.emit_user)">
                 <i class="pi pi-user"></i>
-                {{notification.lastName}} {{notification.firstName}}
+                {{notification.userDisplay}}
             </h6>
             <div class="notification-content">
                 {{notification.content}}
+            </div>
+            <div *ngIf="notification.type == 'post'"
+                 class="view-post">
+                <p>
+                    View post...
+                </p>
             </div>
         </div>
     </div>

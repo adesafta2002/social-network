@@ -14,10 +14,10 @@ async function initializeRoutesAndDBConnect() {
     await connectToSqlServer();
 
     const publicRouter = new PublicRouter({});
-    app.use(publicRouter.routes()).use(publicRouter.allowedMethods())
+    app.use(publicRouter.routes()).use(publicRouter.allowedMethods());
 
     const privateRouter = new PrivateRouter({});
-    app.use(privateRouter.routes()).use(privateRouter.allowedMethods())
+    app.use(privateRouter.routes()).use(privateRouter.allowedMethods());
 
     app.listen(3000, () => {
         console.log("Koa started");

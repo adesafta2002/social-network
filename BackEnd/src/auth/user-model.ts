@@ -5,6 +5,14 @@ export interface IUser {
     password: string;
     gender?: string;
     birthDate?: string;
-    locationId?: number;
+    address?: string;
     id?: number;
+}
+
+export interface IRelationship {
+    id?: number;
+    emit_user?: number;
+    receive_user?: number;
+    created_at?: number;
+    pending?: number;
 }

@@ -10,7 +10,7 @@
         box-shadow: 4px 4px 4px $boxShadow;
         background-color: $darkSecondaryColor;
         color: $darkPrimaryColorText;
-        padding: 3rem 2rem;
+        padding: 3.5rem 1rem 2.5rem 1rem;
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
@@ -22,17 +22,29 @@
                 font-size: 1.5rem;
             }
         }
-
+        .notifications-refresh {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            .pi {
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+            :hover {
+                color: $userIconColor;
+            }
+        }
         .notifications-wrapper {
             min-height: 35vh;
             max-height: 50vh;
             display: flex;
             flex-direction: column;
             overflow-y: auto;
-            padding-right: 0.4rem;
+            padding:0 0.5rem 0.5rem 0;
+            @include applyBorderRadius;
         }
         .notifications-wrapper::-webkit-scrollbar {
-            width: 5px;
+            width: 2px;
         }
         .notifications-wrapper::-webkit-scrollbar-track {
             background: $darkSecondaryColor;
@@ -45,16 +57,39 @@
         }
 
         .notification {
-            background-color: $greyPrimaryColor;
             padding: 0.5rem 0.5rem;
             @include applyBorderRadius;
             margin-top: 0.5rem;
+            width: 100%;
+            box-shadow: 5px 2px 15px -6px rgb(121, 121, 121);
+            h6 {
+                cursor: pointer;
+                color: $darkSecondaryColorText;
+
+                .pi-user {
+                    color: $userIconColor;
+                    margin: 0.1rem 0.2rem 0 0.3rem;
+                }
+            }
+            h6:hover {
+                color: white;
+            }
             .notification-content {
                 padding: 0rem 1rem;
+                font-size: 0.9rem;
                 color: $darkPrimaryColorText;
             }
-            .pi-user {
-                color: $userIconColor;
+            .view-post {
+                font-size: 0.8rem;
+                text-align: right;
+                padding: 0.2rem 0.5rem 0 0;
+                p {
+                    cursor: pointer;
+                    display: inline;
+                }
+                p:hover {
+                    color: $userIconColor;
+                }
             }
         }
     }

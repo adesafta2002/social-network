@@ -1,6 +1,6 @@
 @import "../../variables";
 :host {
-    ::ng-deep .p-datatable-scrollable  {
+    ::ng-deep .p-datatable-scrollable {
         .p-datatable-wrapper::-webkit-scrollbar {
             width: 5px;
         }

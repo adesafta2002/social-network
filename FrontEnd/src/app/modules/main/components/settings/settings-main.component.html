@@ -1,0 +1,76 @@
+<div class="settings-component">
+    <div class="container settings-wrapper">
+        <h2>Profile settings</h2>
+        <form class="settings-form"
+              [formGroup]="settingsForm">
+            <div class="row">
+                <div class="col-6">
+                    <label for="firstName">{{'auth.signup.firstName' | translate}}</label>
+                    <div class="{{(!firstName.valid && firstName.touched) ? 'invalid':''}}">
+                        <input id="firstName"
+                               formControlName="firstName"
+                               type="text"
+                               autocomplete="off">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="lastName">{{'auth.signup.lastName' | translate}}</label>
+                    <div class="position_icon {{(!lastName.valid && lastName.touched) ? 'invalid':''}}">
+                        <input id="lastName"
+                               formControlName="lastName"
+                               type="text"
+                               autocomplete="off">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="email">{{'auth.signup.email' | translate}}</label>
+                    <div class="position_icon {{(!email.valid && email.touched) ? 'invalid':''}}">
+                        <input id="email"
+                               formControlName="email"
+                               type="text"
+                               autocomplete="off">
+                        <i class="pi pi-user"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="address">{{'auth.signup.address' | translate}}</label>
+                    <div class="position_icon {{(!address.valid && address.touched) ? 'invalid':''}}">
+                        <input id="address"
+                               formControlName="address"
+                               type="text"
+                               autocomplete="off">
+                        <i class="pi pi-home"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4 {{(!address.valid && address.touched) ? 'invalid':''}}">
+                    <label class="mb-1"
+                           for="birthDate">{{'auth.signup.birthDate' | translate}}</label>
+                    <input type="date"
+                           id="birthDate"
+                           name="birthDate"
+                           formControlName="birthDate"
+                           min="1900-01-01"
+                           [max]="date">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label class="mb-1"
+                           for="gender">{{'auth.signup.gender' | translate}}</label>
+                    <p-selectButton [options]="genderOptions"
+                                    formControlName="gender"
+                                    optionLabel="name"
+                                    optionValue="value"></p-selectButton>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
