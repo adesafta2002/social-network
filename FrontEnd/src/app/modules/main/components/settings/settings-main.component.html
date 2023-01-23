@@ -72,5 +72,12 @@
                 </div>
             </div>
         </form>
+        <button pButton
+                pRipple
+                [disabled]="!settingsForm.valid"
+                type="button"
+                label="Save changes"
+                class="p-button-raised  p-button-success mt-3"
+                (click)="saveChanges()"></button>
     </div>
 </div>

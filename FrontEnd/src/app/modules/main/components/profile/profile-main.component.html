@@ -14,7 +14,13 @@
         </div>
         <div class="row user-utility-band d-flex justify-content-around">
             <div class="col-4 d-flex flex-column justify-content-center">
-                <button *ngIf="!selectedUser.friendRequest"
+                <button *ngIf="selectedUser.id === loggedUser.id"
+                        routerLink="/main/settings">
+                    <i class="pi pi-cog">
+                    </i>
+                    Settings
+                </button>
+                <button *ngIf="!selectedUser.friendRequest && selectedUser.id !== loggedUser.id"
                         (click)="sendFriendRequest()">
                     <i class="pi pi-user-plus">
                     </i>

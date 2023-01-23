@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserFunctions = void 0;
+const notification_1 = require("../notification");
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config();
@@ -80,6 +81,13 @@ var UserFunctions;
         const result = await request.execute('usp_send_friend_request');
         if (result.returnValue && result.returnValue !== -1) {
             relationship.id = result.returnValue;
+            const notification = {
+                emit_user: relationship.emit_user,
+                receive_user: relationship.receive_user,
+                type: "friend_req",
+                content: "Has sent you a friend request",
+            };
+            notification_1.NotificationFunctions.insert(notification);
         }
         else if (result.returnValue) {
             relationship.id = -1;
@@ -103,4 +111,16 @@ var UserFunctions;
         return;
     }
     UserFunctions.acceptFriendRequest = acceptFriendRequest;
+    async function update(user) {
+        const request = new sql.Request();
+        request.input('id', sql.Int, user.id);
+        request.input('first_name', sql.VarChar(50), user.firstName);
+        request.input('last_name', sql.VarChar(50), user.lastName);
+        request.input('address', sql.VarChar(50), user.address);
+        request.input('gender', sql.VarChar(50), user.gender);
+        request.input('birth_date', user.birthDate);
+        const result = await request.execute('usp_update_User');
+        return;
+    }
+    UserFunctions.update = update;
 })(UserFunctions = exports.UserFunctions || (exports.UserFunctions = {}));

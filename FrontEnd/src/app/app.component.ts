@@ -44,7 +44,6 @@ export class AppComponent implements OnInit {
       ).subscribe(
         (user: IUser) => {
           if (user) {
-            console.log('user')
             this.store.dispatch(friendsActions.searchFriends({ payload: { userId: user.id, _summary: true } }));
           }
         }

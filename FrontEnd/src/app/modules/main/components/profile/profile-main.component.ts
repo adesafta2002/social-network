@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { find, findIndex } from 'lodash';
+import * as moment from 'moment';
 import { MessageService } from 'primeng/api';
 import { distinctUntilChanged, filter, takeWhile, take } from 'rxjs/operators';
 import { FriendRequestTypes } from 'src/app/enums/friend-request-types';
@@ -55,6 +56,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         id: this.id
       }
       this.store.dispatch(friendsActions.getSelectedUser({ payload }));
+      this.getRelationships(this.loggedUser.id);
     });
 
     this.store.pipe(select(selectFriendsSelected)).
@@ -93,7 +95,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   mapSelectedUser() {
-    console.log(this.selectedUser)
     let friendRequest = '';
     let relationshipId = null;
     const requestSent = findIndex(this.relationships, (rel) => {
@@ -111,11 +112,27 @@ export class ProfileComponent implements OnInit, OnDestroy {
       relationshipId = this.relationships[receivedFriendRequest].id;
 
     }
+    const birthDate = this.selectedUser.birthDate ? moment(this.selectedUser.birthDate).format('YYYY-MM-DD').toString() : '';
+    const gender = this.mapUserGender(this.selectedUser.gender);
     this.selectedUser = {
       ...this.selectedUser,
       friendRequest,
+      birthDate,
+      gender,
       relationshipId
     }
+  }
+
+  mapUserGender(gender: number | string) {
+    switch (+gender) {
+      case 1:
+        return 'Male'
+      case 2:
+        return 'Female'
+      case 3:
+        return 'Other'
+    }
+    return '';
   }
 
   sendFriendRequest() {
@@ -148,6 +165,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       if (res) {
         this.notificationsService.createMessage('error', 'Error', res);
       } else {
+        this.store.dispatch(friendsActions.searchFriends({ payload: { userId: this.loggedUser.id, _summary: true } }));
         this.notificationsService.createMessage('success', 'Success', message);
         this.selectedUser = {
           ...this.selectedUser,

@@ -1,7 +1,14 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { IUser } from 'src/app/models/user.interface';
 import * as moment from 'moment';
+import { select, Store } from '@ngrx/store';
+import { distinctUntilChanged, takeWhile, take, catchError } from "rxjs/operators"
+import { selectUser } from 'src/app/store/selectors/user.selectors';
+import { UserService } from 'src/app/shared/services/user.service';
+import { cloneDeep } from 'lodash';
+import { Observable, ObservableInput, of } from 'rxjs';
+import { NotificationsService } from 'src/app/shared/services/notifications.service';
 
 @Component({
   selector: 'settings-main',
@@ -9,7 +16,7 @@ import * as moment from 'moment';
   styleUrls: ['settings-main.component.scss']
 })
 export class SettingsComponent implements OnInit, OnDestroy {
-  @Input() user: IUser;
+  user: IUser;
   settingsForm: FormGroup;
   alive = true;
   date;
@@ -36,7 +43,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     return this.settingsForm.get('address') as FormControl;
   }
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private store: Store, private _userService: UserService, private _notificationsService: NotificationsService) {
     this.date = moment(new Date()).format('YYYY-MM-DD').toString();
     this.settingsForm = this.fb.group({
       id: [null, [Validators.required]],
@@ -48,8 +55,47 @@ export class SettingsComponent implements OnInit, OnDestroy {
       address: [null, [Validators.maxLength(50)]],
     });
   }
+
   ngOnInit(): void {
-    this.settingsForm.patchValue(this.user);
+    this.store.pipe(select(selectUser)).
+      pipe(
+        takeWhile(() => this.alive),
+        distinctUntilChanged()
+      ).subscribe(
+        (user: IUser) => {
+          if (!user) {
+            return;
+          }
+          this.user = user;
+          this.mapUserToSettingsForm(user);
+        }
+      );
+    this.email.disable();
+  }
+
+  mapUserToSettingsForm(user: IUser) {
+    const newUser = cloneDeep(user);
+    newUser.birthDate = moment(user.birthDate).format('YYYY-MM-DD').toString();
+    newUser.gender = +user.gender;
+    this.settingsForm.patchValue(newUser);
+  }
+
+  saveChanges() {
+    if (!this.settingsForm.valid) {
+      return;
+    }
+    this._userService.updateUser(this.settingsForm.getRawValue()).pipe(
+      take(1),
+      catchError(err => this.handleUserUpdateError(err))
+    ).subscribe(res =>
+      this._notificationsService.createMessage('success', 'User', 'User updated')
+    );
+  }
+
+  handleUserUpdateError(err): Observable<any> {
+    this.mapUserToSettingsForm(this.user);
+    this._notificationsService.createMessage('error', 'User', err);
+    return of(null);
   }
 
   ngOnDestroy(): void {

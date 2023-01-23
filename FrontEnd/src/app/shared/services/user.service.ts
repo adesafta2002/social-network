@@ -4,6 +4,7 @@ import { isEmpty } from "lodash";
 import { Observable } from "rxjs";
 import { IRelationship } from "src/app/models/relationship.interface";
 import { ISearchResponse } from "src/app/models/search-response.interface";
+import { IUser } from "src/app/models/user.interface";
 import { EFieldEndpoint, EMainEndpoint } from "../enpoints";
 
 @Injectable({
@@ -38,6 +39,10 @@ export class UserService {
 
     getFriends(payload: UserParams) {
         return this.http.get(EMainEndpoint.api + EFieldEndpoint.friend + this.getSearchParams(payload))
+    }
+
+    updateUser(user: IUser) {
+        return this.http.put(EMainEndpoint.api + EFieldEndpoint.user + `/${user.id}`, user, { responseType: 'text' });
     }
 
     private getSearchParams(params: any) {

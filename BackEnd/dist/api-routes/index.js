@@ -89,6 +89,17 @@ class PrivateRouter extends Router {
                 ctx.body = 'User not found!';
             }
         });
+        this.put('/api/User/:id', async (ctx) => {
+            try {
+                await user_1.UserFunctions.update(ctx.request.body);
+                ctx.status = 200;
+                ctx.body = '';
+            }
+            catch (error) {
+                ctx.status = 400;
+                ctx.body = error.message;
+            }
+        });
         this.post('/api/sendFriendRequest', async (ctx) => {
             try {
                 await user_1.UserFunctions.sendFriendRequest(ctx.request.body);

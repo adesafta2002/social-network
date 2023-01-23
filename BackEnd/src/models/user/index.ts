@@ -1,4 +1,6 @@
+import { INotification } from "../../auth/notification-model";
 import { IRelationship, IUser } from "../../auth/user-model";
+import { NotificationFunctions } from "../notification";
 
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv')
@@ -96,6 +98,13 @@ export namespace UserFunctions {
 
         if (result.returnValue && result.returnValue !== -1) {
             relationship.id = result.returnValue;
+            const notification: INotification = {
+                emit_user: relationship.emit_user,
+                receive_user: relationship.receive_user,
+                type: "friend_req",
+                content: "Has sent you a friend request",
+            }
+            NotificationFunctions.insert(notification);
         } else if (result.returnValue) {
             relationship.id = -1
         } else {
@@ -118,6 +127,20 @@ export namespace UserFunctions {
         request.input('id', sql.Int, id);
 
         const result = await request.execute('usp_accept_Relationship');
+        return;
+    }
+
+    export async function update(user: IUser) {
+        const request = new sql.Request();
+
+        request.input('id', sql.Int, user.id);
+        request.input('first_name', sql.VarChar(50), user.firstName);
+        request.input('last_name', sql.VarChar(50), user.lastName);
+        request.input('address', sql.VarChar(50), user.address);
+        request.input('gender', sql.VarChar(50), user.gender);
+        request.input('birth_date', user.birthDate);
+
+        const result = await request.execute('usp_update_User');
         return;
     }
 }

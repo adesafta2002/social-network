@@ -93,6 +93,17 @@ export class PrivateRouter extends Router {
             }
         });
 
+        this.put('/api/User/:id', async (ctx: any) => {
+            try {
+                await UserFunctions.update(ctx.request.body);
+                ctx.status = 200;
+                ctx.body = '';
+            } catch (error) {
+                ctx.status = 400;
+                ctx.body = error.message;
+            }
+        });
+
         this.post('/api/sendFriendRequest', async (ctx: any) => {
             try {
                 await UserFunctions.sendFriendRequest(ctx.request.body);

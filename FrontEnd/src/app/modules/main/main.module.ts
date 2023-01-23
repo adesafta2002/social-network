@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { SelectButtonModule } from 'primeng/selectbutton';
@@ -25,7 +26,8 @@ import { MainRoutingModule } from './main.routes';
         ReactiveFormsModule,
         InputTextModule,
         ProgressSpinnerModule,
-        SelectButtonModule
+        SelectButtonModule,
+        ButtonModule
     ],
     declarations: [
         MainComponent,
