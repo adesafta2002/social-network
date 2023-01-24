@@ -1,0 +1,16 @@
+<div class="feed-wrapper">
+    <form class="add-post"
+          [formGroup]="postForm">
+        <h4>Add post</h4>
+        <textarea class="{{(!content.valid && buttonPressed) ? 'invalid':''}}"
+                  formControlName="content"
+                  rows="5"
+                  (resize)="false"></textarea>
+        <div class="footer d-flex justify-content-end">
+            <button class="post-button"
+                    (click)="savePost()">
+                Post
+            </button>
+        </div>
+    </form>
+</div>

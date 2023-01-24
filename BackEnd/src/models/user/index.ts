@@ -1,5 +1,5 @@
-import { INotification } from "../../auth/notification-model";
-import { IRelationship, IUser } from "../../auth/user-model";
+import { INotification } from "../notification/notification-model";
+import { IRelationship, IUser } from "./user-model";
 import { NotificationFunctions } from "../notification";
 
 const jwt = require('jsonwebtoken');

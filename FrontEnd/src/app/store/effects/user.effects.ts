@@ -48,7 +48,7 @@ export class UserEffects {
             map((res) => {
                 const user = get(res, 'user', {});
                 const token = get(res, 'token', null);
-                this.router.navigate(['/main/settings/']);
+                this.router.navigate(['/main/feed/']);
                 return userActions.loginUserSuccess({ user, token });
             }),
             catchError(err => of(userActions.loginUserError()))

@@ -13,5 +13,6 @@ export enum EFieldEndpoint {
     friend = 'Friend',
     sendFriendRequest = 'sendFriendRequest',
     getRelationships = '/relationships',
-    notifications = 'Notification'
+    notifications = 'Notification',
+    post = 'Post'
 }

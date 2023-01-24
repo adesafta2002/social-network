@@ -30,7 +30,7 @@ import { MainComponent } from './container/main.component';
                     },
                     {
                         path: '',
-                        redirectTo: 'profile',
+                        redirectTo: 'feed',
                         pathMatch: 'full'
                     }
                 ],

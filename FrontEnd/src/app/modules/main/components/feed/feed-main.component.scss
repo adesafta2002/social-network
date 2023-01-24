@@ -1,0 +1,67 @@
+@import "../../../../shared/variables";
+@import "../../../../shared/mixins";
+
+:host {
+    width: 100%;
+    height: calc(100vh - 6rem);
+    .feed-wrapper {
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        justify-content: start;
+        .add-post {
+            width: 100%;
+            background-color: $darkSecondaryColor;
+            box-shadow: 4px 4px 4px $boxShadow;
+            min-height: 14rem;
+            @include applyBorderRadius;
+            padding: 1rem 1rem;
+            color: $darkSecondaryColorText;
+            textarea::-webkit-scrollbar {
+                width: 2px;
+            }
+            textarea::-webkit-scrollbar-track {
+                background: $darkSecondaryColor;
+            }
+            textarea::-webkit-scrollbar-thumb {
+                background: #888;
+            }
+            textarea::-webkit-scrollbar-thumb:hover {
+                background: #555;
+            }
+            textarea {
+                resize: none;
+                @include applyBorderRadius;
+                background-color: $darkPrimaryColor;
+                color: $inputColors;
+                padding: 0.2rem 1rem;
+                margin-top: 0.5rem;
+                width: 100%;
+                outline: none;
+                border: none;
+                color: $darkSecondaryColorText;
+            }
+            .post-button {
+                outline: none;
+                border: none;
+                min-height: 2rem;
+                margin-top: 1rem;
+                min-width: 5rem;
+                color: $darkSecondaryColor;
+                border-radius: 6px;
+                padding: 0.5rem 1rem;
+                text-align: center;
+                cursor: pointer;
+                background-color: $userIconColor;
+                transition: 0.5s ease;
+            }
+            .invalid {
+                border: 1px solid $errorColor !important;
+            }
+            .post-button:hover {
+                box-shadow: 0px 0px 24px -5px $userIconColor;
+                transition: 0.5s ease;
+            }
+        }
+    }
+}
