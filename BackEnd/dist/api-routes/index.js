@@ -5,6 +5,7 @@ const Router = require("koa-router");
 const auth_1 = require("../auth");
 const friends_1 = require("../models/friends");
 const notification_1 = require("../models/notification");
+const post_1 = require("../models/post");
 const user_1 = require("../models/user");
 const jwt = require('koa-jwt');
 class PublicRouter extends Router {
@@ -171,6 +172,95 @@ class PrivateRouter extends Router {
         this.delete('/api/Notification/:id', async (ctx) => {
             try {
                 await notification_1.NotificationFunctions.remove(ctx.params.id);
+                ctx.status = 200;
+                ctx.body = '';
+            }
+            catch (error) {
+                ctx.status = 400;
+                ctx.body = error.message;
+            }
+        });
+        this.post('/api/Post', async (ctx) => {
+            try {
+                await post_1.PostFunctions.insert(ctx.request.body);
+                if (ctx.request.body.id && ctx.request.body.id !== -1) {
+                    ctx.status = 201;
+                    ctx.body = '';
+                    ctx.set('Location', ctx.request.body.id);
+                }
+            }
+            catch (error) {
+                ctx.status = 400;
+                ctx.body = error.message;
+            }
+        });
+        this.get('/api/Post', async (ctx) => {
+            try {
+                const entry = await post_1.PostFunctions.search(ctx.query);
+                ctx.body = {
+                    entry,
+                    total: entry === null || entry === void 0 ? void 0 : entry.length
+                };
+                ctx.status = 200;
+            }
+            catch (error) {
+                ctx.status = 400;
+                ctx.body = error.message;
+            }
+        });
+        this.delete('/api/Post/:id', async (ctx) => {
+            try {
+                await post_1.PostFunctions.remove(ctx.params.id);
+                ctx.status = 200;
+                ctx.body = '';
+            }
+            catch (error) {
+                ctx.status = 400;
+                ctx.body = error.message;
+            }
+        });
+        this.post('/api/Like', async (ctx) => {
+            try {
+                await post_1.PostFunctions.$like(ctx.request.body);
+                if (ctx.request.body.id && ctx.request.body.id !== -1) {
+                    ctx.status = 201;
+                    ctx.body = '';
+                    ctx.set('Location', ctx.request.body.id);
+                }
+            }
+            catch (error) {
+                ctx.status = 400;
+                ctx.body = error.message;
+            }
+        });
+        this.post('/api/Comment', async (ctx) => {
+            try {
+                await post_1.PostFunctions.$comment(ctx.request.body);
+                if (ctx.request.body.id && ctx.request.body.id !== -1) {
+                    ctx.status = 201;
+                    ctx.body = '';
+                    ctx.set('Location', ctx.request.body.id);
+                }
+            }
+            catch (error) {
+                ctx.status = 400;
+                ctx.body = error.message;
+            }
+        });
+        this.delete('/api/Like/:id', async (ctx) => {
+            try {
+                await post_1.PostFunctions.$unlike(ctx.params.id);
+                ctx.status = 200;
+                ctx.body = '';
+            }
+            catch (error) {
+                ctx.status = 400;
+                ctx.body = error.message;
+            }
+        });
+        this.delete('/api/Comment/:id', async (ctx) => {
+            try {
+                await post_1.PostFunctions.$removeComment(ctx.params.id);
                 ctx.status = 200;
                 ctx.body = '';
             }

@@ -2,6 +2,7 @@ import Router = require('koa-router');
 import { AuthFunctions, SecurityFunctions } from '../auth';
 import { FriendsFunctions } from '../models/friends';
 import { NotificationFunctions } from '../models/notification';
+import { PostFunctions } from '../models/post';
 import { UserFunctions } from '../models/user';
 
 const jwt = require('koa-jwt');
@@ -175,6 +176,97 @@ export class PrivateRouter extends Router {
         this.delete('/api/Notification/:id', async (ctx: any) => {
             try {
                 await NotificationFunctions.remove(ctx.params.id);
+                ctx.status = 200;
+                ctx.body = '';
+            } catch (error) {
+                ctx.status = 400;
+                ctx.body = error.message;
+            }
+        });
+
+
+        this.post('/api/Post', async (ctx: any) => {
+            try {
+                await PostFunctions.insert(ctx.request.body);
+                if (ctx.request.body.id && ctx.request.body.id !== -1) {
+                    ctx.status = 201;
+                    ctx.body = '';
+                    ctx.set('Location', ctx.request.body.id);
+                }
+            } catch (error) {
+                ctx.status = 400;
+                ctx.body = error.message;
+            }
+        });
+
+        this.get('/api/Post', async (ctx: any) => {
+            try {
+                const entry = await PostFunctions.search(ctx.query);
+
+                ctx.body = {
+                    entry,
+                    total: entry?.length
+                }
+                ctx.status = 200;
+            } catch (error) {
+                ctx.status = 400;
+                ctx.body = error.message;
+            }
+        });
+
+        this.delete('/api/Post/:id', async (ctx: any) => {
+            try {
+                await PostFunctions.remove(ctx.params.id);
+                ctx.status = 200;
+                ctx.body = '';
+            } catch (error) {
+                ctx.status = 400;
+                ctx.body = error.message;
+            }
+        });
+
+        this.post('/api/Like', async (ctx: any) => {
+            try {
+                await PostFunctions.$like(ctx.request.body);
+                if (ctx.request.body.id && ctx.request.body.id !== -1) {
+                    ctx.status = 201;
+                    ctx.body = '';
+                    ctx.set('Location', ctx.request.body.id);
+                }
+            } catch (error) {
+                ctx.status = 400;
+                ctx.body = error.message;
+            }
+        });
+
+        this.post('/api/Comment', async (ctx: any) => {
+            try {
+                await PostFunctions.$comment(ctx.request.body);
+                if (ctx.request.body.id && ctx.request.body.id !== -1) {
+                    ctx.status = 201;
+                    ctx.body = '';
+                    ctx.set('Location', ctx.request.body.id);
+                }
+            } catch (error) {
+                ctx.status = 400;
+                ctx.body = error.message;
+            }
+        });
+
+        this.delete('/api/Like/:id', async (ctx: any) => {
+            try {
+                await PostFunctions.$unlike(ctx.params.id);
+                ctx.status = 200;
+                ctx.body = '';
+            } catch (error) {
+                ctx.status = 400;
+                ctx.body = error.message;
+            }
+        });
+
+        this.delete('/api/Comment/:id', async (ctx: any) => {
+            try {
+                await PostFunctions.$removeComment(ctx.params.id);
                 ctx.status = 200;
                 ctx.body = '';
             } catch (error) {

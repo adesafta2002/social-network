@@ -1,4 +1,4 @@
-import { IUser } from "./user-model";
+import { IUser } from "../models/user/user-model";
 import { getTokenAndData, validateUserData } from "./utils";
 
 const jwt = require('jsonwebtoken');

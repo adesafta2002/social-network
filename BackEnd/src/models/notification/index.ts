@@ -1,4 +1,4 @@
-import { INotification } from "../../auth/notification-model";
+import { INotification } from "./notification-model";
 
 const dotenv = require('dotenv')
 dotenv.config();

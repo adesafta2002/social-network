@@ -1,4 +1,4 @@
-import { IUser } from "./user-model";
+import { IUser } from "../models/user/user-model";
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 dotenv.config();
