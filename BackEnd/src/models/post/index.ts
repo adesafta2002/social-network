@@ -1,3 +1,4 @@
+import { NotificationFunctions } from "../notification";
 import { INotification } from "../notification/notification-model";
 import { IComment } from "./comment-model";
 import { ILike } from "./like-model";
@@ -17,6 +18,12 @@ export namespace PostFunctions {
                 case 'userId':
                     request.input('userId', sql.Int, params[param]);
                     break;
+                case 'observerId':
+                    request.input('observerId', sql.Int, params[param]);
+                    break;
+                case 'postId':
+                    request.input('postId', sql.Int, params[param]);
+                    break;
                 default:
                     break;
             }
@@ -24,10 +31,14 @@ export namespace PostFunctions {
 
         const result = await request.execute('usp_get_Posts');
 
+        const entry = [];
         if (!result.recordset.length) {
             return [];
         }
-        return result.recordset;
+        result.recordset.forEach(ent => {
+            entry.push(translate(ent));
+        });
+        return entry;
     }
 
     export async function insert(post: IPost) {
@@ -79,6 +90,14 @@ export namespace PostFunctions {
 
         if (result.returnValue && result.returnValue !== -1) {
             like.id = result.returnValue;
+            const notification: INotification = {
+                emit_user: like.userId,
+                postId: like.postId,
+                type: "post_like",
+                content: "Liked your post",
+            }
+            console.log(notification);
+            NotificationFunctions.insert(notification);
         } else if (result.returnValue) {
             like.id = -1;
         }
@@ -113,10 +132,21 @@ export namespace PostFunctions {
         return;
     }
 
-    export async function $unlike(id: number) {
+    export async function $unlike(params) {
         const request = new sql.Request();
 
-        request.input('id', sql.Int, id);
+        for (const param in params) {
+            switch (param) {
+                case 'userId':
+                    request.input('userId', sql.Int, params[param]);
+                    break;
+                case 'postId':
+                    request.input('postId', sql.Int, params[param]);
+                    break;
+                default:
+                    break;
+            }
+        }
 
         await request.execute('usp_unlike_Post');
 
@@ -131,5 +161,35 @@ export namespace PostFunctions {
         await request.execute('usp_delete_Comment');
 
         return;
+    }
+
+    function translate(entry) {
+        const mappedEntry: any = {};
+
+        if (entry.id) {
+            mappedEntry.id = entry.id;
+        }
+
+        if (entry.content) {
+            mappedEntry.content = entry.content;
+        }
+
+        if (entry.userId) {
+            mappedEntry.author = {
+                id: entry.userId
+            }
+            if (entry.first_name && entry.last_name) {
+                mappedEntry.author.display = `${entry.first_name} ${entry.last_name}`;
+            }
+        }
+
+        if (entry.timestamp) {
+            mappedEntry.timestamp = entry.timestamp;
+        }
+
+        mappedEntry.likesCount = entry.likesCount ? entry.likesCount : 0;
+        mappedEntry.userLikedPost = entry.userLikedPost ? entry.userLikedPost : false;
+
+        return mappedEntry;
     }
 }

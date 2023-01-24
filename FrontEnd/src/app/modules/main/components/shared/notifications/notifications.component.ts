@@ -37,6 +37,10 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     this.router.navigate(['main/profile', id])
   }
 
+  viewPost(postId) {
+    this.router.navigate(['main/post', postId]);
+  }
+
   ngOnDestroy(): void {
     this.alive = false;
   }

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { find, findIndex } from 'lodash';
 import * as moment from 'moment';
@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   loggedUser: IUser = null;
   relationships: IRelationship[];
   loading: boolean;
-  constructor(private route: ActivatedRoute, private authService: AuthService, private store: Store<IAppState>, private userService: UserService, private notificationsService: NotificationsService) {
+  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService, private store: Store<IAppState>, private userService: UserService, private notificationsService: NotificationsService) {
 
   }
   ngOnInit() {
@@ -196,7 +196,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   seeUserPosts() {
-    console.log('Seeing user posts');
+    this.router.navigate(['main/user-feed', this.selectedUser.id]);
   }
 
   seeUserFriends() {

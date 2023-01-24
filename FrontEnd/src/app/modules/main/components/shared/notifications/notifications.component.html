@@ -18,8 +18,9 @@
             <div class="notification-content">
                 {{notification.content}}
             </div>
-            <div *ngIf="notification.type == 'post'"
-                 class="view-post">
+            <div *ngIf="notification.type == 'post_like'"
+                 class="view-post"
+                 (click)="viewPost(notification.postId)">
                 <p>
                     View post...
                 </p>

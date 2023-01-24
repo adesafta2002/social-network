@@ -1,0 +1,11 @@
+<div class="post-wrapper">
+    <div class="posts">
+        <div *ngIf="loading"
+             class="spinner-mask">
+            <p-progressSpinner></p-progressSpinner>
+        </div>
+        <post-card *ngIf="post"
+                   [post]="post">
+        </post-card>
+    </div>
+</div>

@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PostFunctions = void 0;
+const notification_1 = require("../notification");
 const dotenv = require('dotenv');
 dotenv.config();
 const sql = require('mssql');
@@ -13,15 +14,25 @@ var PostFunctions;
                 case 'userId':
                     request.input('userId', sql.Int, params[param]);
                     break;
+                case 'observerId':
+                    request.input('observerId', sql.Int, params[param]);
+                    break;
+                case 'postId':
+                    request.input('postId', sql.Int, params[param]);
+                    break;
                 default:
                     break;
             }
         }
         const result = await request.execute('usp_get_Posts');
+        const entry = [];
         if (!result.recordset.length) {
             return [];
         }
-        return result.recordset;
+        result.recordset.forEach(ent => {
+            entry.push(translate(ent));
+        });
+        return entry;
     }
     PostFunctions.search = search;
     async function insert(post) {
@@ -60,6 +71,14 @@ var PostFunctions;
         const result = await request.execute('usp_like_Post');
         if (result.returnValue && result.returnValue !== -1) {
             like.id = result.returnValue;
+            const notification = {
+                emit_user: like.userId,
+                postId: like.postId,
+                type: "post_like",
+                content: "Liked your post",
+            };
+            console.log(notification);
+            notification_1.NotificationFunctions.insert(notification);
         }
         else if (result.returnValue) {
             like.id = -1;
@@ -88,9 +107,20 @@ var PostFunctions;
         return;
     }
     PostFunctions.$comment = $comment;
-    async function $unlike(id) {
+    async function $unlike(params) {
         const request = new sql.Request();
-        request.input('id', sql.Int, id);
+        for (const param in params) {
+            switch (param) {
+                case 'userId':
+                    request.input('userId', sql.Int, params[param]);
+                    break;
+                case 'postId':
+                    request.input('postId', sql.Int, params[param]);
+                    break;
+                default:
+                    break;
+            }
+        }
         await request.execute('usp_unlike_Post');
         return;
     }
@@ -102,4 +132,27 @@ var PostFunctions;
         return;
     }
     PostFunctions.$removeComment = $removeComment;
+    function translate(entry) {
+        const mappedEntry = {};
+        if (entry.id) {
+            mappedEntry.id = entry.id;
+        }
+        if (entry.content) {
+            mappedEntry.content = entry.content;
+        }
+        if (entry.userId) {
+            mappedEntry.author = {
+                id: entry.userId
+            };
+            if (entry.first_name && entry.last_name) {
+                mappedEntry.author.display = `${entry.first_name} ${entry.last_name}`;
+            }
+        }
+        if (entry.timestamp) {
+            mappedEntry.timestamp = entry.timestamp;
+        }
+        mappedEntry.likesCount = entry.likesCount ? entry.likesCount : 0;
+        mappedEntry.userLikedPost = entry.userLikedPost ? entry.userLikedPost : false;
+        return mappedEntry;
+    }
 })(PostFunctions = exports.PostFunctions || (exports.PostFunctions = {}));

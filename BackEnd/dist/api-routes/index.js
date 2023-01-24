@@ -247,9 +247,9 @@ class PrivateRouter extends Router {
                 ctx.body = error.message;
             }
         });
-        this.delete('/api/Like/:id', async (ctx) => {
+        this.delete('/api/Like', async (ctx) => {
             try {
-                await post_1.PostFunctions.$unlike(ctx.params.id);
+                await post_1.PostFunctions.$unlike(ctx.query);
                 ctx.status = 200;
                 ctx.body = '';
             }

@@ -2,18 +2,21 @@
 @import "../../../../shared/mixins";
 
 :host {
-    width: 100%;
+    width: calc(100% + 0.5rem);
     height: calc(100vh - 6rem);
     .feed-wrapper {
         display: flex;
         height: 100%;
         flex-direction: column;
         justify-content: start;
+        overflow-y: scroll;
+        padding-right: 0.5rem;
+        height: 87vh;
         .add-post {
             width: 100%;
             background-color: $darkSecondaryColor;
             box-shadow: 4px 4px 4px $boxShadow;
-            min-height: 14rem;
+            height: 17rem;
             @include applyBorderRadius;
             padding: 1rem 1rem;
             color: $darkSecondaryColorText;
@@ -63,5 +66,43 @@
                 transition: 0.5s ease;
             }
         }
+        .apply-margin {
+            margin-top: 3rem;
+        }
+        .posts {
+            display: flex;
+            justify-content: start;
+            flex-direction: column;
+            position: relative;
+            gap: 3rem;
+            min-height: 45vh;
+            height: auto;
+            @include applyBorderRadius;
+            .spinner-mask {
+                z-index: 1001;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+
+    .feed-wrapper::-webkit-scrollbar {
+        width: 2px;
+    }
+    .feed-wrapper::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    .feed-wrapper::-webkit-scrollbar-thumb {
+        background: transparent;
+    }
+    .feed-wrapper::-webkit-scrollbar-thumb:hover {
+        background: transparent;
     }
 }

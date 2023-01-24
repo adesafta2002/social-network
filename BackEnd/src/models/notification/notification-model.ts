@@ -4,6 +4,6 @@ export interface INotification {
     receive_user?: number;
     type?: string;
     content?: string;
-    postId?: string;
+    postId?: number;
     userDisplay?: string;
 }

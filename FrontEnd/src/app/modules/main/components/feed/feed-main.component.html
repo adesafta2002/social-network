@@ -1,16 +1,30 @@
 <div class="feed-wrapper">
-    <form class="add-post"
-          [formGroup]="postForm">
-        <h4>Add post</h4>
-        <textarea class="{{(!content.valid && buttonPressed) ? 'invalid':''}}"
-                  formControlName="content"
-                  rows="5"
-                  (resize)="false"></textarea>
-        <div class="footer d-flex justify-content-end">
-            <button class="post-button"
-                    (click)="savePost()">
-                Post
-            </button>
+    <div class="content">
+        <form class="add-post"
+              [formGroup]="postForm"
+              *ngIf="!postsUserId">
+            <h4>Add post</h4>
+            <textarea class="{{(!content.valid && buttonPressed) ? 'invalid':''}}"
+                      formControlName="content"
+                      rows="5"
+                      (resize)="false"></textarea>
+            <div class="footer d-flex justify-content-end">
+                <button class="post-button"
+                        (click)="savePost()">
+                    Post
+                </button>
+            </div>
+        </form>
+        <div class="posts {{!postsUserId  ? 'apply-margin':''}}">
+            <div *ngIf="loading"
+                 class="spinner-mask">
+                <p-progressSpinner></p-progressSpinner>
+            </div>
+            <div *ngFor="let post of posts"
+                 class="post">
+                <post-card [post]="post">
+                </post-card>
+            </div>
         </div>
-    </form>
+    </div>
 </div>

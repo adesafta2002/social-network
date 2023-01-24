@@ -1,0 +1,20 @@
+<div class="post-card">
+    <div class="header">
+        <h4 (click)="goToUserPage()">{{post?.author?.display}}</h4>
+        <p class="timestamp">{{getFormatedDateForPost()}} <i class="pi pi-clock"></i></p>
+    </div>
+    <div class="content">
+        <p>
+            &nbsp; {{post.content}}
+        </p>
+    </div>
+    <div class="footer d-flex justify-content-between">
+        <div class="like-button">
+            <button *ngIf="post.userLikedPost"
+                    (click)="reactToPost('unlike')"><i class="bi bi-hand-thumbs-up-fill"></i> Like</button>
+            <button *ngIf="!post.userLikedPost"
+                    (click)="reactToPost('like')"><i class="bi bi-hand-thumbs-up"></i> Like</button>
+            ({{post.likesCount}} liked this post)
+        </div>
+    </div>
+</div>

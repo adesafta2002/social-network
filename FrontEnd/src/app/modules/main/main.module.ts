@@ -7,6 +7,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { AuthGuard } from 'src/app/guards/auth.guard';
+import { PostCardComponent } from './components/feed/components/post-card/post-card.component';
 import { FeedComponent } from './components/feed/feed-main.component';
 import { ProfileComponent } from './components/profile/profile-main.component';
 import { SettingsComponent } from './components/settings/settings-main.component';
@@ -14,6 +15,7 @@ import { BottomLeftMenuComponent } from './components/shared/bottom-left-menu/bo
 import { FriendsListComponent } from './components/shared/friends-list/friends-list.component';
 import { NotificationsComponent } from './components/shared/notifications/notifications.component';
 import { UserDisplayComponent } from './components/shared/user-display/user-display.component';
+import { UserPostComponent } from './components/user-post/user-post.component';
 import { MainComponent } from './container/main.component';
 import { MainRoutingModule } from './main.routes';
 
@@ -37,7 +39,9 @@ import { MainRoutingModule } from './main.routes';
         FeedComponent,
         SettingsComponent,
         NotificationsComponent,
-        FriendsListComponent
+        FriendsListComponent,
+        PostCardComponent,
+        UserPostComponent
     ],
     providers: [
     ],

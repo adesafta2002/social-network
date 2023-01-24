@@ -13,32 +13,26 @@ import { PostsService } from 'src/app/shared/services/posts.service';
 import { selectUser } from 'src/app/store/selectors/user.selectors';
 
 @Component({
-  selector: 'feed-main',
-  templateUrl: 'feed-main.component.html',
-  styleUrls: ['feed-main.component.scss']
+  selector: 'user-post',
+  templateUrl: 'user-post.component.html',
+  styleUrls: ['user-post.component.scss']
 })
-export class FeedComponent implements OnInit, OnDestroy {
+export class UserPostComponent implements OnInit, OnDestroy {
   alive = true;
-  postForm: FormGroup
-  buttonPressed = false;
-  postsUserId: number = null;
-  posts: IPost[];
+  post: IPost;
   loading = false;
+  userId: number;
 
-  get userId(): FormControl {
-    return this.postForm.get('userId') as FormControl
-  }
-  get content(): FormControl {
-    return this.postForm.get('content') as FormControl
-  }
   constructor(private route: ActivatedRoute, private store: Store, private fb: FormBuilder, private _postsService: PostsService, private _notificationsService: NotificationsService) {
-    this.postForm = this.fb.group({
-      userId: [null, [Validators.required]],
-      content: [null, [Validators.required, Validators.maxLength(500)]]
-    })
   }
 
   ngOnInit(): void {
+    this.route.params.pipe(
+      takeWhile(() => this.alive)
+    ).subscribe(params =>
+      this.getPost(params.id)
+    )
+
     this.store.pipe(select(selectUser)).
       pipe(
         takeWhile(() => this.alive),
@@ -49,42 +43,27 @@ export class FeedComponent implements OnInit, OnDestroy {
           if (!user) {
             return;
           }
-          this.userId.patchValue(user.id);
-          this.postsUserId = +routeParams.userId;
-          this.getPosts();
+          this.userId = user.id;
+          this.getPost(routeParams.id);
         }
       );
   }
 
-  savePost() {
-    if (!this.postForm.valid) {
-      this.buttonPressed = true;
+  getPost(id) {
+    if (!this.userId) {
       return;
     }
-    this.buttonPressed = false;
-    const post = this.postForm.getRawValue();
-    this._postsService.post(post).pipe(
-      take(1),
-      catchError(err => this.handlePostsError(err))
-    ).subscribe(res => {
-      this._notificationsService.createMessage('success', 'Post', 'New post added');
-      this.content.reset();
-      this.getPosts();
-    })
-  }
-
-  getPosts() {
     this.loading = true;
     const payload = {
-      userId: this.postsUserId,
-      observerId: this.userId.value
+      postId: id,
+      observerId: this.userId
     }
     this._postsService.get(payload).pipe(
       takeWhile(() => this.alive),
       catchError(err => this.handlePostsError(err))
     ).subscribe(res => {
       if (res.entry) {
-        this.posts = res.entry;
+        this.post = res.entry[0];
       }
       this.loading = false;
     })

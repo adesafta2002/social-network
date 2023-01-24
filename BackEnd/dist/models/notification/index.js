@@ -38,6 +38,9 @@ var NotificationFunctions;
         if (notification.content) {
             request.input('content', sql.VarChar(100), notification.content);
         }
+        if (notification.postId) {
+            request.input('postId', sql.Int, notification.postId);
+        }
         const result = await request.execute('usp_insert_Notifications');
         if (result.returnValue && result.returnValue !== -1) {
             notification.id = result.returnValue;

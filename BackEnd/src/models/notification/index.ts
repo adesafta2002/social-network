@@ -47,6 +47,10 @@ export namespace NotificationFunctions {
             request.input('content', sql.VarChar(100), notification.content);
         }
 
+        if (notification.postId) {
+            request.input('postId', sql.Int, notification.postId);
+        }
+        
         const result = await request.execute('usp_insert_Notifications');
 
         if (result.returnValue && result.returnValue !== -1) {
@@ -58,7 +62,7 @@ export namespace NotificationFunctions {
         return;
     }
 
-    export async function remove(id){
+    export async function remove(id) {
         const request = new sql.Request();
 
         request.input('id', sql.Int, id);

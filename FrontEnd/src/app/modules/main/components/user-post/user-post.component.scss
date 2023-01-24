@@ -1,0 +1,31 @@
+@import "../../../../shared/variables";
+@import "../../../../shared/mixins";
+
+:host {
+    width: calc(100% + 0.5rem);
+    height: calc(100vh - 6rem);
+    .post-wrapper {
+        padding-right: 0.5rem;
+        height: 87vh;
+        .posts {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            position: relative;
+            @include applyBorderRadius;
+            .spinner-mask {
+                z-index: 1001;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+}
