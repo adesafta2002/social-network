@@ -9,6 +9,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { AuthGuard } from 'src/app/guards/auth.guard';
 import { PostCardComponent } from './components/feed/components/post-card/post-card.component';
 import { FeedComponent } from './components/feed/feed-main.component';
+import { ProfileFriendsComponent } from './components/profile-friends/profile-friends.component';
 import { ProfileComponent } from './components/profile/profile-main.component';
 import { SettingsComponent } from './components/settings/settings-main.component';
 import { BottomLeftMenuComponent } from './components/shared/bottom-left-menu/bottom-left-menu.component';
@@ -41,7 +42,8 @@ import { MainRoutingModule } from './main.routes';
         NotificationsComponent,
         FriendsListComponent,
         PostCardComponent,
-        UserPostComponent
+        UserPostComponent,
+        ProfileFriendsComponent
     ],
     providers: [
     ],

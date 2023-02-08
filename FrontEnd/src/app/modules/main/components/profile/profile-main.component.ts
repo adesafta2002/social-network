@@ -200,7 +200,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   seeUserFriends() {
-    console.log('Seeing user friends');
+    this.router.navigate(['main/friends', this.selectedUser.id]);
   }
 
   ngOnDestroy() {

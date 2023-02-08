@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AuthGuard } from 'src/app/guards/auth.guard';
 import { FeedComponent } from './components/feed/feed-main.component';
+import { ProfileFriendsComponent } from './components/profile-friends/profile-friends.component';
 import { ProfileComponent } from './components/profile/profile-main.component';
 import { SettingsComponent } from './components/settings/settings-main.component';
 import { UserPostComponent } from './components/user-post/user-post.component';
@@ -37,6 +38,11 @@ import { MainComponent } from './container/main.component';
                     {
                         path: 'post/:id',
                         component: UserPostComponent,
+                        canActivate: [AuthGuard]
+                    },
+                    {
+                        path: 'friends/:id',
+                        component: ProfileFriendsComponent,
                         canActivate: [AuthGuard]
                     },
                     {

@@ -1,0 +1,21 @@
+<div class="profile-display-component">
+    <div class="container profile-display-wrapper">
+        <div class="header">
+            <i class="pi pi-user">
+            </i>
+            <h4>
+                {{getDisplay()}}
+            </h4>
+        </div>
+        <div class="content">
+            <div *ngFor="let friend of friends"
+                 class="friends">
+                <h5 class="friend"
+                    (click)="userDetailsClickHandler(friend)">
+                    <i class="pi pi-user"></i>
+                    {{friend.firstName}} {{friend.lastName}}
+                </h5>
+            </div>
+        </div>
+    </div>
+</div>
