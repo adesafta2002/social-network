@@ -36,7 +36,7 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
     )
   }
   ngOnInit() {
-    this.invokeParticles();
+    // this.invokeParticles();
     this.store.pipe(select(selectUserLoading)).pipe(
       takeWhile(() => this.alive),
       distinctUntilChanged()

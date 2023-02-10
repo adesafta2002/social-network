@@ -4,7 +4,7 @@
 :host {
     .friends-list-component {
         width: 100%;
-        height: 63vh;
+        height: 58vh;
         position: relative;
         @include applyBorderRadius;
         box-shadow: 4px 4px 4px $boxShadow;
@@ -23,8 +23,7 @@
         }
 
         .friends-wrapper {
-            min-height: 50vh;
-            max-height: 60vh;
+            height: 50vh;
             display: flex;
             flex-direction: column;
             overflow-y: auto;

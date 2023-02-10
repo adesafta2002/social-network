@@ -9,6 +9,8 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { cloneDeep } from 'lodash';
 import { Observable, ObservableInput, of } from 'rxjs';
 import { NotificationsService } from 'src/app/shared/services/notifications.service';
+import { getSelectedUser } from 'src/app/store/actions/friends.actions';
+import * as userActions from '../../../../store/actions/user.actions';
 
 @Component({
   selector: 'settings-main',
@@ -75,7 +77,9 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   mapUserToSettingsForm(user: IUser) {
     const newUser = cloneDeep(user);
-    newUser.birthDate = moment(user.birthDate).format('YYYY-MM-DD').toString();
+    if (user.birthDate) {
+      newUser.birthDate = moment(user.birthDate).format('YYYY-MM-DD').toString();
+    }
     newUser.gender = +user.gender;
     this.settingsForm.patchValue(newUser);
   }
@@ -87,8 +91,18 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this._userService.updateUser(this.settingsForm.getRawValue()).pipe(
       take(1),
       catchError(err => this.handleUserUpdateError(err))
-    ).subscribe(res =>
+    ).subscribe(res => {
       this._notificationsService.createMessage('success', 'User', 'User updated')
+      const localStorageUserToken = localStorage.getItem('Token');
+      if (localStorageUserToken) {
+        const data = {
+          payload: {
+            token: localStorageUserToken
+          }
+        };
+        this.store.dispatch(userActions.restoreUserSession(data));
+      }
+    }
     );
   }
 
